@@ -10,6 +10,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="assets/css/navbar.css">
+
   <style>
     body, html {
       margin: 0; padding: 0;
@@ -20,57 +22,6 @@
       transition: background 1s ease;
       background: rgb(227,227,227); /* initial */
     }
-
-    /* NAVBAR */
-    nav {
-      position: fixed;
-      top: 20px; left: 50%;
-      transform: translateX(-50%);
-      display: flex; justify-content: space-between; align-items: center;
-      background: rgba(60, 60, 60, 0.55);
-      backdrop-filter: blur(15px) saturate(160%);
-      -webkit-backdrop-filter: blur(15px) saturate(160%);
-      padding: 14px 40px;
-      border-radius: 50px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.35);
-      z-index: 1000;
-      min-width: 65%; max-width: 1100px;
-      overflow: hidden;
-    }
-    nav::before {
-      content: "";
-      position: absolute;
-      top: 0; left: -100%;
-      width: 50%; height: 100%;
-      background: linear-gradient(120deg, rgba(255,255,255,0.4), transparent);
-      transform: skewX(-25deg);
-      animation: shine 6s infinite;
-    }
-    @keyframes shine {
-      0% { left: -100%; }
-      50% { left: 200%; }
-      100% { left: 200%; }
-    }
-    .logo {
-      font-weight: 700; font-size: 1.4rem; letter-spacing: 3px; text-transform: uppercase;
-      background: linear-gradient(120deg, #fff, #aaa);
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent;
-      z-index: 2;
-    }
-    .nav-links { display: flex; gap: 2rem; z-index: 2; }
-    .nav-links a {
-      text-decoration: none; font-weight: 500; padding: 6px 2px; transition: all 0.3s ease;
-      color: #222;
-    }
-    .nav-links a:hover { color: #000; text-shadow: 0 0 8px rgba(0,0,0,0.3); }
-    nav.dark .nav-links a { color: #ccc; }
-    nav.dark .nav-links a:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
-    .btn-sponsor {
-      background: #222; color: #fff; border: none; border-radius: 30px;
-      padding: 10px 22px; font-weight: 600; cursor: pointer; font-size: 0.95rem;
-    }
-    nav.dark .btn-sponsor { background: #eee; color: #111; }
 
     /* SLIDER */
     .slider-container {
@@ -109,15 +60,16 @@
       100% { transform: rotate(180deg) translateY(-100%); }
     }
 
-    /* Scroll arrow */
-    .scroll-arrow {
-      position: absolute;
-      bottom: 40px; right: 50px; /* bottom-right */
-      font-size: 4.5rem;
-      cursor: pointer; animation: bounce 1.5s infinite;
-      z-index: 950;
-      transition: color 0.5s ease;
-    }
+.scroll-arrow {
+  position: absolute;
+  bottom: 70px; right: 70px;
+  font-size: 4.5rem;
+  cursor: none; /* override default hand */
+  animation: bounce 1.5s infinite;
+  z-index: 950;
+  transition: color 0.5s ease;
+}
+
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
@@ -159,23 +111,31 @@
     }
     .ai-tagline.top { top: 12%; }
     .ai-tagline.bottom { bottom: 12%; }
+
+    a, button, .scroll-arrow {
+  cursor: none !important;
+}
+
   </style>
 </head>
 <body>
 
   <!-- NAVBAR -->
-  <nav id="navbar">
-    <div class="logo">RIGNITC</div>
-    <div class="nav-links">
-      <a href="about.html">About Us</a>
-      <a href="projects.html">Projects</a>
-      <a href="achievements.html">Achievements</a>
-      <a href="events.html">Events</a>
-      <a href="team.html">Team</a>
-      <a href="contact.html">Contact</a>
-    </div>
-    <button class="btn-sponsor">Sponsor Us</button>
-  </nav>
+<nav id="navbar">
+  <div class="logo">
+    <img src="assets/images/logo.png" alt="Logo">
+  </div>
+  <div class="nav-links">
+    <a href="about/">About Us</a>
+    <a href="projects/">Projects</a>
+    <a href="achievements/">Achievements</a>
+    <a href="events/">Events</a>
+    <a href="team/">Team</a>
+    <a href="contact/">Contact</a>
+  </div>
+  <button class="btn-sponsor">Sponsor Us</button>
+</nav>
+
 
   <!-- SLIDER -->
   <div class="slider-container">
@@ -197,8 +157,8 @@
       <!-- Scene 4 (AI) -->
       <div class="scene-wrapper" style="background:rgb(11,11,11);">
         <spline-viewer url="https://prod.spline.design/7OZMy55eefCqX0VM/scene.splinecode"></spline-viewer>
-        <div class="ai-tagline top">text</div>
-        <div class="ai-tagline bottom">text</div>
+        <div class="ai-tagline top">This is the place where</div>
+        <div class="ai-tagline bottom">AI thinks with you</div>
       </div>
     </div>
 
@@ -207,62 +167,1000 @@
   </div>
 
   <!-- Placeholders -->
-  <section id="about">About Us Section</section>
-  <section>Projects Section</section>
-  <section>Achievements Section</section>
-  <section>Events Section</section>
-  <section>Team Section</section>
-  <section>Contact Section</section>
+<section id="about">
+  <style>
+    #about {
+      background: #111;
+      color: #fff;
+      font-family: "Libre Caslon Display", serif;
+      margin: 0;
+    }
+
+    #about .about-container {
+      padding: 120px 50px 50px; /* top padding = navbar height */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 100vh;
+      gap: 50px;
+      flex-wrap: wrap;
+      overflow: hidden;
+    }
+
+    #about .about-text,
+    #about .about-image {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease-out;
+    }
+
+    #about .about-text.show,
+    #about .about-image.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #about .about-text {
+      flex: 1 1 400px;
+      font-size: 1.5rem;
+      line-height: 2.2rem;
+    }
+
+    #about .about-text h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+
+    /* ---------- 3D Card (replacement for about-image) ---------- */
+    #about .card-wrap {
+      --card-w: 520px;
+      --card-h: 360px;
+      width: var(--card-w);
+      height: var(--card-h);
+      perspective: 800px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin: 0 auto;
+      flex: 1 1 400px;
+    }
+
+    #about .card-shadow,
+    #about .card {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transition: transform 0.12s ease-out;
+      will-change: transform;
+      overflow: hidden;
+    }
+
+    #about .card {
+      z-index: 2;
+      background: #000 url('assets/images/about-image.jpg') center center no-repeat;
+      background-size: cover;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+      transform-style: preserve-3d;
+    }
+
+    #about .card-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 20px 30px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0));
+      text-align: left;
+    }
+
+    #about .card-overlay h2 {
+      font-size: 3.4rem;
+      margin: 0;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 2px;
+    }
+
+    #about .card-overlay p {
+      margin: 8px 0 0;
+      font-size: 2.1rem;
+      font-weight: bold;
+      color: #ddd;
+    }
+
+    #about .card-shadow {
+      z-index: 1;
+      transform: translateY(18px) scale(.88);
+      filter: blur(18px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(0,0,0,0.35));
+      opacity: 0.7;
+      border-radius: 20px;
+    }
+
+    /* Button styling */
+    #about .about-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 28px;
+      border: 2px solid #fff;
+      border-radius: 50px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      margin-top: 20px;
+    }
+
+    #about .about-link::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0.2), rgba(255,255,255,0.4), rgba(255,255,255,0.2));
+      transform: skewX(-25deg);
+      transition: all 0.5s ease;
+    }
+
+    #about .about-link:hover::before {
+      left: 200%;
+    }
+
+    #about .about-link:hover {
+      color: #000;
+      background: #fff;
+      box-shadow: 0 0 20px rgba(255,255,255,0.6);
+      transform: scale(1.05);
+    }
+
+    #about .about-link span {
+      margin-left: 8px;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    #about .about-link:hover span {
+      transform: translateX(6px);
+    }
+
+    @media (max-width: 900px) {
+      #about .about-container {
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+      #about .about-text {
+        font-size: 1.3rem;
+      }
+      #about .card-wrap {
+        width: 340px;
+        height: 240px;
+      }
+      #about .card-overlay h2 { font-size: 1.8rem; }
+      #about .card-overlay p { font-size: 0.95rem; }
+    }
+  </style>
+
+  <div class="about-container">
+    <div class="about-text">
+      <h1>Who Are We?</h1>
+      <p>
+      Robotics Interest Group (RIG) was formed out of the passion for robotics, to facilitate learning and research
+      in the areas of Mechatronics/robotics and Intelligent Systems, Automation, Advanced Control Systems, Modeling
+      and Simulation, and Sensors & Algorithms. Our aim is to acquire knowledge and appropriate hands-on experience,
+      in order to meet the needs of these rapidly changing technologies and provide services to industry for promoting
+      new technologies as well as designing and manufacturing commercially viable products, for the development of our country
+      </p>
+      <p>
+        Join us to explore the world of robotics, collaborate on exciting projects, 
+        and push the boundaries of technology.
+      </p>
+      <a href="about/" class="about-link">Know More About Us <span>→</span></a>
+    </div>
+
+    <!-- 3D CARD REPLACEMENT -->
+    <div class="about-image">
+      <div class="card-wrap" id="cardWrap">
+        <div class="card-shadow" id="cardShadow"></div>
+        <div class="card" id="card">
+          <div class="card-overlay">
+            <h2>RIGNITC</h2>
+            <p>B21s B22s @ORIGO24</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Scroll reveal for about section
+    const aboutObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          aboutObserver.unobserve(entry.target); // reveal only once
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('#about .about-text, #about .about-image')
+      .forEach(el => aboutObserver.observe(el));
+
+    // ---------- 3D tilt effect ----------
+    (function(){
+      const wrap = document.getElementById('cardWrap');
+      const card = document.getElementById('card');
+      const shadow = document.getElementById('cardShadow');
+
+      function handleMove(e){
+        const rect = wrap.getBoundingClientRect();
+        const cx = rect.left + rect.width/2;
+        const cy = rect.top + rect.height/2;
+        const mouseX = (e.clientX || (e.touches && e.touches[0].clientX));
+        const mouseY = (e.clientY || (e.touches && e.touches[0].clientY));
+        const dx = (mouseX - cx) / rect.width;
+        const dy = (mouseY - cy) / rect.height;
+
+        const rotX = (-dy * 12).toFixed(2);
+        const rotY = (dx * 18).toFixed(2);
+
+        card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(8px)`;
+        shadow.style.transform = `translateY(24px) scale(.86) translateZ(0) rotateX(${rotX/4}deg) rotateY(${rotY/4}deg)`;
+      }
+
+      function reset(){
+        card.style.transform = `rotateX(0deg) rotateY(0deg) translateZ(0px)`;
+        shadow.style.transform = `translateY(18px) scale(.88)`;
+      }
+
+      wrap.addEventListener('mousemove', handleMove);
+      wrap.addEventListener('touchmove', handleMove, {passive:true});
+      wrap.addEventListener('mouseleave', reset);
+      wrap.addEventListener('touchend', reset);
+    })();
+  </script>
+</section>
+
+
+
+<section id="projects">
+  <style>
+  #projects {
+    background: #111;
+    color: #fff;
+    font-family: "Libre Caslon Display", serif;
+    margin: 0;
+  }
+
+  #projects .projects-container {
+    padding: 120px 50px 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* align like About */
+    gap: 60px;
+    min-height: 100vh;
+    width: 100%;
+  }
+
+  #projects .projects-header {
+    font-size: 4rem;
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease-out;
+    text-align: left; /* default left */
+    width: 100%;
+  }
+
+  #projects .projects-header.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #projects .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    width: 100%; /* take full width */
+  }
+
+  #projects .project-card {
+    position: relative;
+    border: 2px solid #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #000;
+    transform: translateY(50px);
+    opacity: 0;
+    transition: all 0.8s ease-out;
+  }
+
+  #projects .project-card.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  #projects .project-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease, opacity 0.3s ease;
+  }
+
+  #projects .project-card:hover img {
+    transform: scale(1.05);
+    opacity: 0.85;
+  }
+
+  #projects .project-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 25px;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0));
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #projects .project-overlay h2 {
+    font-size: 2rem;
+    margin: 0;
+  }
+
+  #projects .project-overlay p {
+    font-size: 1.1rem;
+    line-height: 1.8rem;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  #projects .project-link {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 28px;
+    border: 2px solid #fff;
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    margin-top: 12px;
+  }
+
+  #projects .project-link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.2), rgba(255,255,255,0.4), rgba(255,255,255,0.2));
+    transform: skewX(-25deg);
+    transition: all 0.5s ease;
+  }
+
+  #projects .project-link:hover::before {
+    left: 200%;
+  }
+
+  #projects .project-link:hover {
+    color: #000;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(255,255,255,0.6);
+    transform: scale(1.05);
+  }
+
+  #projects .project-link span {
+    margin-left: 8px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  #projects .project-link:hover span {
+    transform: translateX(6px);
+  }
+
+  #projects .view-all {
+    display: flex;
+    justify-content: flex-end;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease-out;
+    width: 100%;
+  }
+
+  #projects .view-all.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #projects .view-all a {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 2px;
+    transition: all 0.3s ease;
+  }
+
+  #projects .view-all a:hover {
+    color: #aaa;
+    border-color: #aaa;
+  }
+
+  @media (max-width: 900px) {
+    #projects .projects-header {
+      text-align: center;
+    }
+    #projects .view-all {
+      justify-content: center;
+    }
+  }
+</style>
+
+
+  <div class="projects-container">
+    <h1 class="projects-header">Featured Projects</h1>
+    
+    <div class="projects-grid">
+      <!-- Project 1 -->
+      <div class="project-card">
+        <img src="assets/images/projects/riggu.png" alt="Riggu Robot">
+        <div class="project-overlay">
+          <h2><strong>RIGGU</strong></h2>
+          <p>Semi Humanoid Robot designed for interactive robotics demonstrations, combining engineering and creativity to inspire learning.</p>
+          <a href="projects/riggu/" class="project-link">View Project <span>→</span></a>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card">
+        <img src="assets/images/projects/avibot.png" alt="Avibot Robot">
+        <div class="project-overlay">
+          <h2><strong>AVIBOT</strong></h2>
+          <p>Automated Egg Collecting Farm Bot that optimizes poultry farm efficiency, ensuring faster collection and reducing human labor.</p>
+          <a href="projects/avibot/" class="project-link">View Project <span>→</span></a>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card">
+        <img src="assets/images/projects/hospbed.png" alt="Hospital Bed">
+        <div class="project-overlay">
+          <h2><strong>HOSPITAL BED</strong></h2>
+          <p>Designed for bedridden patients to improve comfort and mobility, allowing independence without constantly relying on caretakers.</p>
+          <a href="projects/hospital-bed/" class="project-link">View Project <span>→</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- View All Button -->
+    <div class="view-all">
+      <a href="projects/">View All Projects →</a>
+    </div>
+  </div>
+
+<script>
+  // Scroll reveal for projects
+  const projectsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+        projectsObserver.unobserve(entry.target); // stop observing once shown
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('#projects .projects-header, #projects .project-card, #projects .view-all')
+    .forEach(el => projectsObserver.observe(el));
+</script>
+
+</section>
+  
+
+<section id="gallery">
+  <style>
+    #gallery {
+      background: #111;
+      color: #fff;
+      font-family: "Libre Caslon Display", serif;
+      margin: 0;
+      padding: 120px 50px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 50px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #gallery h1 {
+      flex: 1 1 400px;
+      font-size: 4rem;
+      margin: 0;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease-out;
+    }
+    #gallery h1.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #gallery .polaroid-stage {
+      flex: 2 1 600px;
+      width: 100%;
+      min-height: 500px;
+      position: relative;
+    }
+
+    #gallery .polaroid {
+      position: absolute;
+      width: 200px;
+      height: 220px;
+      background: #fff;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      border: 5px solid #fff;
+      transition: all 0.8s ease;
+      cursor: pointer;
+    }
+
+    #gallery .polaroid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    #gallery .gallery-controls {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 1.3rem;
+    }
+
+    #gallery .gallery-controls button {
+      background: #000;
+      border: 1px solid #fff;
+      color: #fff;
+      padding: 8px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #gallery .gallery-controls button:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    /* Lightbox */
+    #gallery .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      z-index: 1000;
+    }
+
+    #gallery .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border: 4px solid #fff;
+      border-radius: 12px;
+    }
+
+    #gallery .lightbox.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    @media (max-width: 900px) {
+      #gallery {
+        flex-direction: column;
+        text-align: center;
+      }
+      #gallery h1 {
+        font-size: 3rem;
+      }
+    }
+  </style>
+
+  <h1>Gallery</h1>
+  <div class="polaroid-stage" id="polaroidStage"></div>
+
+  <div class="gallery-controls">
+    <button id="shuffle" title="Shuffle"><i class="fas fa-random"></i></button>
+    <button id="spread" title="Spread"><i class="fas fa-expand-arrows-alt"></i></button>
+    <button id="gather" title="Gather"><i class="fas fa-compress-arrows-alt"></i></button>
+    <button id="arrange" title="Arrange"><i class="fas fa-th"></i></button>
+    <button id="help" title="Help"><i class="fas fa-question"></i></button>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="Expanded view">
+  </div>
+
+  <script>
+const galleryObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+      galleryObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+galleryObserver.observe(document.querySelector('#gallery h1'));
+
+const stage = document.getElementById('polaroidStage');
+const polaroids = [];
+const images = []; // store image URLs for lightbox navigation
+
+// Dynamically load gallery images
+(function loadImages() {
+  const exts = ['jpg', 'jpeg', 'png'];
+  const MAX_SCAN = 100;
+  let i = 1;
+
+  function tryLoad() {
+    if (i > MAX_SCAN) {
+      shuffle(); // Shuffle after all images are loaded
+      return;
+    }
+    let extIndex = 0;
+
+    function tryExt() {
+      if (extIndex >= exts.length) {
+        i++;
+        tryLoad();
+        return;
+      }
+      const img = new Image();
+      img.src = `assets/images/gallery/${i}.${exts[extIndex]}`;
+      img.onload = () => {
+        const div = document.createElement('div');
+        div.className = 'polaroid';
+        div.innerHTML = `<img src="${img.src}" alt="Gallery ${i}">`;
+        stage.appendChild(div);
+        polaroids.push(div);
+        images.push(img.src);
+
+        // Progressive shuffle
+        div.style.top = Math.random() * (stage.clientHeight - 220) + 'px';
+        div.style.left = Math.random() * (stage.clientWidth - 200) + 'px';
+        div.style.transform = `rotate(${(Math.random() - 0.5) * 60}deg)`;
+
+        i++;
+        tryLoad();
+      };
+      img.onerror = () => {
+        extIndex++;
+        tryExt();
+      };
+    }
+    tryExt();
+  }
+  tryLoad();
+})();
+
+// Layout functions
+function shuffle() {
+  polaroids.forEach(p => {
+    p.style.top = Math.random() * (stage.clientHeight - 220) + 'px';
+    p.style.left = Math.random() * (stage.clientWidth - 200) + 'px';
+    p.style.transform = `rotate(${(Math.random() - 0.5) * 60}deg)`;
+  });
+}
+
+function spread() {
+  const cols = Math.ceil(Math.sqrt(polaroids.length));
+  const rows = Math.ceil(polaroids.length / cols);
+  const w = stage.clientWidth / cols;
+  const h = stage.clientHeight / rows;
+  polaroids.forEach((p, i) => {
+    const x = (i % cols) * w + 20;
+    const y = Math.floor(i / cols) * h + 20;
+    p.style.left = x + 'px';
+    p.style.top = y + 'px';
+    p.style.transform = 'rotate(0deg)';
+  });
+}
+
+function gather() {
+  polaroids.forEach(p => {
+    p.style.top = (stage.clientHeight / 2 - 100 + Math.random() * 40 - 20) + 'px';
+    p.style.left = (stage.clientWidth / 2 - 100 + Math.random() * 40 - 20) + 'px';
+    p.style.transform = `rotate(${(Math.random() - 0.5) * 60}deg)`;
+  });
+}
+
+function arrange() {
+  polaroids.forEach((p, i) => {
+    p.style.top = '50px';
+    p.style.left = (i * 220) + 20 + 'px';
+    p.style.transform = 'rotate(0deg)';
+  });
+}
+
+// Buttons
+document.getElementById('shuffle').onclick = shuffle;
+document.getElementById('spread').onclick = spread;
+document.getElementById('gather').onclick = gather;
+document.getElementById('arrange').onclick = arrange;
+
+// Lightbox
+const lightbox = document.getElementById('lightbox');
+lightbox.innerHTML = `
+  <div class="arrow left">&#10094;</div>
+  <img src="" alt="Expanded view">
+  <div class="arrow right">&#10095;</div>
+`;
+const lightboxImg = lightbox.querySelector('img');
+const arrowLeft = lightbox.querySelector('.left');
+const arrowRight = lightbox.querySelector('.right');
+let currentIndex = 0;
+
+function showLightbox(index) {
+  currentIndex = index;
+  lightboxImg.src = images[index];
+  lightbox.classList.add('show');
+}
+
+function prevImage() {
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  lightboxImg.src = images[currentIndex];
+}
+
+function nextImage() {
+  currentIndex = (currentIndex + 1) % images.length;
+  lightboxImg.src = images[currentIndex];
+}
+
+// Open lightbox on click
+stage.addEventListener('click', e => {
+  const imgEl = e.target.closest('.polaroid img');
+  if (imgEl) {
+    const index = images.indexOf(imgEl.src);
+    showLightbox(index);
+  }
+});
+
+// Close lightbox on clicking outside image
+lightbox.addEventListener('click', e => {
+  if (e.target === lightbox) lightbox.classList.remove('show');
+});
+
+// Arrow events
+arrowLeft.addEventListener('click', e => {
+  e.stopPropagation();
+  prevImage();
+});
+arrowRight.addEventListener('click', e => {
+  e.stopPropagation();
+  nextImage();
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (!lightbox.classList.contains('show')) return;
+  if (e.key === 'ArrowLeft') prevImage();
+  if (e.key === 'ArrowRight') nextImage();
+  if (e.key === 'Escape') lightbox.classList.remove('show');
+});
+
+document.getElementById('help').onclick = () => {
+  alert('🔀 Shuffle | ⬌ Spread | ⬍ Gather | ⬜ Arrange | ◀️◀️ Lightbox arrows');
+};
+</script>
+
+
+</section>
+  
+  <section id="footer">
+  <!-- Font Awesome (free CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    #footer {
+      background: #000;
+      color: #fff;
+      font-family: "Libre Caslon Display", serif;
+      margin: 0;
+      padding: 15px 0; /* small height */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      min-height: auto !important; /* remove full-screen height */
+      height: auto !important;
+      padding: 30px 0; /* keep it short */
+    }
+
+    #footer .socials {
+      display: flex;
+      gap: 40px;
+      font-size: 3.4rem; /* icon size */
+    }
+
+    #footer .socials a {
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    #footer .socials a:hover {
+      color: #aaa;
+      transform: scale(1.2);
+    }
+
+    #footer .tag {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      text-align: center;
+    }
+  </style>
+
+  <!-- Social links -->
+  <div class="socials">
+    <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://github.com/" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+    <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <a href="https://youtube.com/" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+  </div>
+
+  <!--tagline -->
+  <div class="tag">No Copyrights Reserved</div>
+</section>
+
 
   <!-- Cursor -->
   <div class="cursor"></div>
 
-  <script>
-    const cursor = document.querySelector(".cursor");
-    const links = document.querySelectorAll("a, button");
-    const slider = document.getElementById("slider");
-    const navbar = document.getElementById("navbar");
-    const scrollArrow = document.getElementById("scrollArrow");
+<script>
+(() => {
+  // ---------------- Custom Cursor ----------------
+  const cursor = document.querySelector(".cursor");
+  const links = document.querySelectorAll("a, button, .polaroid img, #scrollArrow");
+  const navbar = document.getElementById("navbar");
+  const scrollArrow = document.getElementById("scrollArrow");
+  const slider = document.getElementById("slider");
 
-    document.addEventListener("mousemove", e => {
-      cursor.style.top = e.clientY + "px";
-      cursor.style.left = e.clientX + "px";
-    });
-    links.forEach(link => {
-      link.addEventListener("mouseenter", () => cursor.classList.add("hovered"));
-      link.addEventListener("mouseleave", () => cursor.classList.remove("hovered"));
-    });
+  Object.assign(cursor.style, {
+    position: "fixed",
+    pointerEvents: "none",
+    zIndex: "9999",
+    width: "20px",
+    height: "20px",
+    borderRadius: "50%",
+    transition: "background 0.2s, transform 0.15s",
+    transform: "translate(-50%, -50%)"
+  });
 
-    // Disable zoom globally
-    window.addEventListener("wheel", e => { if (e.ctrlKey) e.preventDefault(); }, { passive: false });
-    window.addEventListener("gesturestart", e => e.preventDefault());
+  // Hover effect
+  links.forEach(el => {
+    el.addEventListener("mouseenter", () => cursor.classList.add("hovered"));
+    el.addEventListener("mouseleave", () => cursor.classList.remove("hovered"));
+  });
 
-    // Disable scroll/zoom inside Spline
-    document.querySelectorAll("spline-viewer").forEach(spline => {
-      spline.addEventListener("wheel", e => e.preventDefault(), { passive: false });
-    });
+  // Follow mouse smoothly
+  document.addEventListener("mousemove", e => {
+    cursor.style.top = `${e.clientY}px`;
+    cursor.style.left = `${e.clientX}px`;
 
-    // Scene cycling
-    let currentIndex = 0;
-    const scenes = 4;
-    setInterval(() => {
-      currentIndex = (currentIndex + 1) % scenes;
-      slider.style.transform = `translateX(-${100 * currentIndex}vw)`;
-      if (currentIndex === 0) { // Robot (light)
-        document.body.style.background = "rgb(227,227,227)";
-        navbar.classList.remove("dark");
-        scrollArrow.style.color = "#111";
-      } else { // All dark ones
-        document.body.style.background = "rgb(11,11,11)";
-        navbar.classList.add("dark");
-        scrollArrow.style.color = "#fff";
-      }
-    }, 10000);
+    // Determine element under cursor ignoring custom cursor
+    cursor.style.display = "none";
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    cursor.style.display = "block";
+    if (!el) return;
 
-    // Scroll arrow → first section
-    scrollArrow.addEventListener("click", () => {
-      document.getElementById("about").scrollIntoView({ behavior: "smooth" });
-    });
-  </script>
+    // Compute background color recursively
+    let bgEl = el;
+    let bg = window.getComputedStyle(bgEl).backgroundColor;
+    while (bg === "rgba(0, 0, 0, 0)" && bgEl.parentElement) {
+      bgEl = bgEl.parentElement;
+      bg = window.getComputedStyle(bgEl).backgroundColor;
+    }
+    const rgb = bg.match(/\d+/g);
+    if (rgb) {
+      const brightness = (0.299*rgb[0] + 0.587*rgb[1] + 0.114*rgb[2]) / 255;
+      cursor.style.background = brightness > 0.6 ? "#111" : "#fff";
+    } else {
+      cursor.style.background = "#fff";
+    }
+  });
+
+  // ScrollArrow hover
+  if(scrollArrow) {
+    scrollArrow.addEventListener("mouseenter", () => cursor.classList.add("hovered"));
+    scrollArrow.addEventListener("mouseleave", () => cursor.classList.remove("hovered"));
+    scrollArrow.style.cursor = "none";
+  }
+
+  // Disable zoom globally
+  window.addEventListener("wheel", e => { if (e.ctrlKey) e.preventDefault(); }, { passive: false });
+  window.addEventListener("gesturestart", e => e.preventDefault());
+
+  document.querySelectorAll("spline-viewer").forEach(spline => {
+    spline.addEventListener("wheel", e => e.preventDefault(), { passive: false });
+  });
+
+  // ---------------- Scene Cycling ----------------
+  var currentIndex = 0; // use var to avoid redeclare errors
+  const scenes = 4;
+  const cycleInterval = 20000;
+  var autoCycleTimer = null;
+
+  function showScene(index) {
+    currentIndex = (index + scenes) % scenes;
+    if(slider) slider.style.transform = `translateX(-${100 * currentIndex}vw)`;
+
+    if(currentIndex === 0) {
+      document.body.style.background = "rgb(227,227,227)";
+      if(navbar) navbar.classList.remove("dark");
+      if(scrollArrow) scrollArrow.style.color = "#111";
+    } else {
+      document.body.style.background = "rgb(11,11,11)";
+      if(navbar) navbar.classList.add("dark");
+      if(scrollArrow) scrollArrow.style.color = "#fff";
+    }
+  }
+
+  function startAutoCycle() {
+    stopAutoCycle();
+    autoCycleTimer = setInterval(() => showScene(currentIndex + 1), cycleInterval);
+  }
+
+  function stopAutoCycle() {
+    if(autoCycleTimer) clearInterval(autoCycleTimer);
+  }
+
+  startAutoCycle();
+
+  document.addEventListener("keydown", e => {
+    if(e.key === "ArrowRight") { showScene(currentIndex + 1); stopAutoCycle(); setTimeout(startAutoCycle, cycleInterval); }
+    else if(e.key === "ArrowLeft") { showScene(currentIndex - 1); stopAutoCycle(); setTimeout(startAutoCycle, cycleInterval); }
+  });
+
+  if(scrollArrow) scrollArrow.addEventListener("click", () => {
+    const about = document.getElementById("about");
+    if(about) about.scrollIntoView({ behavior: "smooth" });
+  });
+
+})();
+</script>
+
+
+
+
 </body>
 </html>
