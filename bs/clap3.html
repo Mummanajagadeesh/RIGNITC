@@ -350,5 +350,16 @@ body {
   </div>
 </div>
 
+
+<script>
+  // Total time: 4s wait + 3s zoom = 7s
+  setTimeout(() => {
+    const script = document.createElement('script');
+    script.src = '../assets/css/navbar.js';  // path to your JS file
+    document.body.appendChild(script);       // dynamically add it to page
+  }, 7000); // 7000ms = 7s
+</script>
+
+
 </body>
 </html>

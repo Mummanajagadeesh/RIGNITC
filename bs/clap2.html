@@ -220,61 +220,16 @@
     background: #151515;
   }
 
-@keyframes clap {
-  0% { transform: rotate(0deg); }          /* Closed */
-  30% { transform: rotate(-20deg); }       /* Slowly open top */
-  35% { transform: rotate(-70deg); }       /* Fully open quickly */
-  40% { transform: rotate(0deg); }         /* Snap back closed */
-  100% { transform: rotate(0deg); }        /* Stay closed */
-}
+  @keyframes rotateUp {
+    0% { transform: rotate(0deg); }
+    96% { transform: rotate(-35deg); }
+    100% { transform: rotate(0deg); }
+  }
 
-.rotateUp {
-  transform-origin: left center;
-  animation: clap 4s forwards;
-  animation-delay: 3s; /* Wait 3 seconds before starting */
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  background: white; /* start white */
-  overflow: hidden;
-}
-
-/* Zoom the clapperboard */
-@keyframes zoomClapper {
-  0% { transform: scale(1); }
-  100% { transform: scale(25); } /* zoom in big */
-}
-
-.outercontainer {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  animation: zoomClapper 3s ease-in 4s forwards; /* wait 4s, zoom 3s */
-}
-
-/* Replace with black after zoom */
-@keyframes replaceWithBlack {
-  0%, 99.9% { background: white; }
-  100% { background: black; }
-}
-
-body {
-  animation: replaceWithBlack 0.01s linear 7s forwards; 
-  /* 7s = 4s wait + 3s zoom */
-}
-
-  .container { width: 700px; height: 700px; }
-.clappercontainer { width: 700px; }
-.clapper__top, .clapper__bottom { height: 80px; }
-.hinge { width: 140px; height: 100px; }
-.scene__text, .take__text, .roll__text { font-size: 2rem; }
-
-
+  .rotateUp {
+    transform-origin: left center;
+    animation: rotateUp 4s infinite;
+  }
 </style>
 </head>
 <body>
