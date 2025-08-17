@@ -123,9 +123,9 @@
 
   <!-- NAVBAR -->
 <nav id="navbar">
-  <div href="#" class="logo">
-    <img src="assets/images/logo.png" alt="Logo">
-  </div>
+  <a href="../" class="logo">
+  <img src="../assets/images/logo.png" alt="Logo">
+</a>
   <div class="nav-links">
     <a href="about/">About Us</a>
     <a href="projects/">Projects</a>
@@ -691,6 +691,118 @@
 
 </section>
   
+<section id="people">
+  <style>
+    #people {
+      background: #111;
+      color: #fff;
+      font-family: "Libre Caslon Display", serif;
+      margin: 0;
+      padding: 20px 0; /* small vertical space */
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    #people .people-header {
+      font-size: 2.5rem; /* smaller */
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease-out;
+    }
+
+    #people .people-header.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #people .company-slider {
+      display: flex;
+      gap: 50px;
+      white-space: nowrap;
+      align-items: center;
+    }
+
+    #people .company-slider img {
+      height: 50px; /* smaller logos to reduce vertical space */
+      object-fit: contain;
+      display: inline-block;
+      filter: brightness(0) invert(1);
+      user-select: none;
+    }
+
+    /* Infinite scroll animation */
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    #people .company-slider.scroll {
+      animation: scroll 40s linear infinite;
+    }
+
+
+        #people {
+      background: #111;
+      color: #fff;
+      font-family: "Libre Caslon Display", serif;
+      margin: 0;
+      padding: 20px 0 !important; /* small vertical space */
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+        min-height: auto !important;
+  height: auto !important;
+    }
+
+  </style>
+
+  <div class="people-header">We Have Alumni in</div>
+
+  <div class="company-slider scroll" id="companySlider"></div>
+
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    observer.observe(document.querySelector('#people .people-header'));
+
+    // Dynamically load all images from companies folder
+    const companySlider = document.getElementById('companySlider');
+    const companyImages = [
+      "assets/images/companies/ti.png",
+      "assets/images/companies/qualcomm.png",
+      "assets/images/companies/nvidia.png",
+      "assets/images/companies/isro.png",
+      "assets/images/companies/samsung.png",
+      "assets/images/companies/nawe.png"
+    ];
+
+    // To make infinite seamless scroll, duplicate enough times
+    const repeatTimes = 10; // increase if needed
+    for (let i = 0; i < repeatTimes; i++) {
+      companyImages.forEach(src => {
+        const img = document.createElement('img');
+        img.src = src;
+        companySlider.appendChild(img);
+      });
+    }
+  </script>
+</section>
+
+
+
 
 <section id="gallery">
 <style>
@@ -1192,9 +1304,6 @@ document.getElementById('help').onclick = () => {
 
 })();
 </script>
-
-
-
 
 </body>
 </html>
