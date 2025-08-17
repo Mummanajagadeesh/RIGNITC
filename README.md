@@ -49,6 +49,7 @@ C:.
 
   * Update social/contact links.
   * Form uses Formspree ID.
+  * Can directly provide a URL with pre-filled fields in the form
 
 * **Team Page:** Not a priority for now.
 
@@ -101,3 +102,8 @@ C:.
 5. Update Contact links and verify forms work with Formspree.
 6. Gradually design the Team page when time allows.
 7. Keep `projects.json` modular and easy to update.
+8. Optimize page loading speed.
+9. Make the layout and elements (like navbar and closing buttons) responsive for small devices.
+10. Improve meta tags for SEO — add a favicon (forgot to include it earlier).
+11. Maintain a black-and-white theme only and improve the overall UI.
+12. Ensure accessibility: proper alt text for images, sufficient contrast, and semantic HTML.
