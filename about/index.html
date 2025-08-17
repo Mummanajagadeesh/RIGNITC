@@ -1,415 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clapperboard Animation</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>About | Our Story</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Inter:wght@300;600;800&family=Poppins:wght@100;200;400;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/navbar.css">
+
 <style>
-  @font-face {
-    font-family: "Eraser";
-    src: url("https://assets.codepen.io/8841541/eraser.regular.ttf");
-    font-weight: normal;
-    font-style: normal;
-  }
+:root{
+  --bg:#000;
+  --fg:#fff;
+  --accent: rgba(255,255,255,0.06);
+  --max-width: 1100px;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height: 1.6;
+}
+.page {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 140px 28px 48px 28px;
+  box-sizing: border-box;
+}
+.site-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  position: relative;
+  z-index: 60;
+  padding-bottom: 2px;
+}
+.site-title {
+  margin: 0;
+  font-family: "Libre Caslon Display", serif;
+  font-size: 3rem;
+  line-height: 1;
+}
+.tagline {
+  margin: 6px 0 0 0;
+  font-weight: 300;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.96);
+  max-width: 100%;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.55);
+}
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+/* Hero */
+.hero {
+  margin-top: 28px;
+  width: 100%;
+  height: 52vh;
+  min-height: 320px;
+  overflow: hidden;
+  border-radius: 6px;
+  position: relative;
+  background: var(--accent);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+  perspective: 1200px;
+  z-index: 10;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60%;
+  height: 60%;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0) 100%);
+  z-index: 2;
+}
+.image-scene {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+  display: block;
+  transform-origin: center center;
+  position: relative;
+  z-index: 1;
+}
+.hero img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;      /* show entire image */
+  object-position: center;  /* always centered */
+  transform: scale(1) translateZ(0);
+  transition: transform 0.3s ease;
+  backface-visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+.hero .bg-text {
+  position: absolute;
+  left: 50%;
+  top: 36px;
+  transform: translateX(-50%) translateZ(-80px);
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-size: 3.8rem;
+  color: #ffffff;
+  pointer-events: none;
+  text-shadow: 0 6px 24px rgba(0,0,0,0.7);
+  z-index: 1;
+  white-space: nowrap;
+}
+.hero-caption {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.8);
+  margin: 8px auto;   /* top/bottom margin + auto left/right */
+  text-align: center;
+  max-width: 90%;      /* optional, keeps caption from being too wide */
+}
 
-  html {
-    background: white;
-    height: 100%;
-  }
 
-  .text {
-    color: #f1f1f1;
-    text-transform: uppercase;
-    font-style: italic;
-    display: inline;
-  }
+.intro {
+  margin: 28px 0 36px 0;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.95);
+}
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  align-items: start;
+  margin-bottom: 80px;
+}
+.col h2 {
+  font-family: "Libre Caslon Display", serif;
+  font-size: 2rem;
+  margin: 0 0 12px 0;
+}
+.col p {
+  margin: 0 0 18px 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.92);
+}
+.muted { color: rgba(255,255,255,0.7); font-size:0.95rem; }
 
-  .text--padded {
-    padding-left: 4px;
-    padding-top: 2px;
-  }
-
-  .outercontainer {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* perspective for 3D effect */
-    perspective: 1600px;
-    -webkit-perspective: 1600px;
-
-    /* prevent visual overflow (stops the vertical scrollbar glitch when we scale/translate the clapboard) */
-    overflow: hidden;
-  }
-
-  .hinge {
-    clip-path: polygon(0% 0%, 47% 0%, 100% 100%, 0% 100%);
-    height: 100px;
-    width: 100px;
-    border: 0.1rem solid grey;
-    z-index: 2;
-    position: relative;
-    background-color: #010101;
-    left: 0;
-    top: 100px;
-    border-radius: 10px;
-  }
-
-  .hinge__rivet {
-    display: block;
-    font-size: 0.6rem;
-    margin: 0;
-  }
-
-  .hinge__rivet--top {
-    position: relative;
-    left: 10px;
-    top: 10px;
-  }
-
-  .hinge__rivet--bottomleft {
-    position: relative;
-    left: 10px;
-    top: 50px;
-  }
-
-  .hinge__rivet--bottomright {
-    position: relative;
-    left: 60px;
-    top: 33px;
-  }
-
-  .container {
-    width: 500px;
-    height: 500px;
-    background-color: #000000;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    border-radius: 0 0 10px 10px;
-  }
-
-  /* ---------- CHANGE: increase visual size by scaling (no layout resize) + prepare for 3D ---------- */
-
-  .clappercontainer {
-    width: 500px;
-    height: 100%;
-    
-    /* preserve 3D for children */
-    transform-style: preserve-3d;
-    -webkit-transform-style: preserve-3d;
-
-    /* visual scale (increases overall size) - change only this value to scale more/less */
-    --scale-factor: 0.5;
-    transform-origin: center center;
-    transform: scale(var(--scale-factor));
-    transition: transform 0.12s ease-out;
-    will-change: transform;
-  }
-
-  /* ---------- end size change ---------- */
-
-  .clapper__top {
-    width: 100%;
-    height: 50px;
-    background-color: #151515;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #000;
-    overflow: hidden;
-    border-radius: 10px 0 0 0;
-  }
-
-  .clapper__top--white {
-    width: 15%;
-    height: 100%;
-    background-color: #f1f1f1;
-    transform: skew(20deg);
-  }
-
-  .clapper__top--white:first-child {
-    visibility: hidden;
-  }
-
-  .clapper__bottom {
-    width: 100%;
-    height: 50px;
-    background-color: #151515;
-    display: flex;
-    justify-content: space-between;
-    overflow: hidden;
-  }
-
-  .clapper__bottom--white {
-    width: 15%;
-    height: 100%;
-    background-color: #f1f1f1;
-    transform: skew(-20deg);
-  }
-
-  .info-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .scene-take-roll {
-    width: 95%;
-    height: 25%;
-    display: flex;
-    justify-content: space-around;
-    border-top: 4px solid #f1f1f1;
-    border-bottom: 4px solid #f1f1f1;
-  }
-
-  .scene, .take, .roll {
-    width: 33%;
-    height: 100%;
-    background: #151515;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0;
-  }
-
-  .scene__text, .take__text, .roll__text,
-  .date__text, .prod__text, .sound__text,
-  .director__text, .cinematographer__text {
-    font-family: "Eraser";
-    color: white;
-    font-size: 1.5rem;
-  }
-
-  .scene, .take {
-    border-right: 4px solid #f1f1f1;
-  }
-
-  .date-prod-sound {
-    width: 95%;
-    height: 25%;
-    display: flex;
-    justify-content: space-around;
-    border-bottom: 4px solid #f1f1f1;
-  }
-
-  .date-prod {
-    width: 60%;
-    height: 100%;
-  }
-
-  .date, .prod {
-    background: #151515;
-    width: 100%;
-    height: 50%;
-    display: flex;
-    border-right: 4px solid #f1f1f1;
-  }
-
-  .date {
-    border-bottom: 4px solid #f1f1f1;
-  }
-
-  .sound {
-    background: #151515;
-    width: 40%;
-  }
-
-  .director {
-    width: 95%;
-    height: 15%;
-    border-bottom: 4px solid #f1f1f1;
-    background: #151515;
-  }
-
-  .cinematographer {
-    width: 95%;
-    height: 15%;
-    border-bottom: 4px solid #f1f1f1;
-    background: #151515;
-  }
-
-  @keyframes rotateUp {
-    0% { transform: rotate(0deg); }
-    96% { transform: rotate(-10deg); }
-    100% { transform: rotate(0deg); }
-  }
-
-  .rotateUp {
-    transform-origin: left center;
-    animation: rotateUp 4s infinite;
-  }
-
-  /* original bottom overrides (kept exactly as in your file) */
-    .container { width: 700px; height: 700px; }
-  .clappercontainer { width: 700px; }
-  .clapper__top, .clapper__bottom { height: 80px; }
-  .hinge { width: 140px; height: 100px; }
-  .scene__text, .take__text, .roll__text { font-size: 2rem; }
-
-  /* ---------- small helpers for hover smoothing ---------- */
-  .clappercontainer.hovering { transition: transform 0.06s ease-out; }
-
-  body {
-    display: flex;
-    justify-content: center;  /* horizontal */
-    align-items: center;      /* vertical */
-    height: 100vh;            /* full screen height */
-    margin: 0;
-  }
+@media (max-width: 980px) {
+  .site-title { font-size: 2.4rem; }
+  .tagline { max-width: 100%; font-size: 1rem; }
+  .hero { height: 44vh; min-height: 260px; }
+  .hero::before { width: 100%; height: 45%; }
+  .hero .bg-text { left: 20px; top: 20px; font-size: 1.4rem; transform: translateZ(0); }
+  .columns { gap: 20px; }
+}
+@media (max-width: 720px) {
+  .page { padding: 56px 18px 36px 18px; }
+  .columns { grid-template-columns: 1fr; }
+  .site-header { flex-direction: column; align-items: flex-start; gap: 8px;}
+  .hero { height: 38vh; min-height: 220px; perspective: none; }
+  .image-scene { transform: none !important; }
+  .hero img { transform: scale(1.01); }
+}
 </style>
-
 </head>
 <body>
 
-<div class="outercontainer">
-  <div class="clappercontainer">
-    <div class="hinge">
-      <p class="hinge__rivet hinge__rivet--top">⚪️</p>
-      <p class="hinge__rivet hinge__rivet--bottomleft">⚪️</p>
-      <p class="hinge__rivet hinge__rivet--bottomright">⚪️</p>
+
+      <nav id="navbar">
+    <div href="../" class="logo">
+      <img src="../assets/images/logo.png" alt="Logo">
     </div>
-
-    <div class="clapper__top rotateUp">
-      <div class="clapper__top--white"></div>
-      <div class="clapper__top--white"></div>
-      <div class="clapper__top--white"></div>
-      <div class="clapper__top--white"></div>
-      <div class="clapper__top--white"></div>
+    <div class="nav-links">
+      <a href="../about/">About Us</a>
+      <a href="../projects/">Projects</a>
+      <a href="../achievements/">Achievements</a>
+      <a href="../events/">Events</a>
+      <a href="../team/">Team</a>
+      <a href="../contact/">Contact</a>
     </div>
+    <button class="btn-sponsor">Sponsor Us</button>
+  </nav>
 
-    <div class="container">
-      <div class="clapper__bottom">
-        <div class="clapper__bottom--white"></div>
-        <div class="clapper__bottom--white"></div>
-        <div class="clapper__bottom--white"></div>
-        <div class="clapper__bottom--white"></div>
-        <div class="clapper__bottom--white"></div>
-      </div>
+  
+<div class="page">
+<header class="site-header">
+  <div>
+    <h1 class="site-title">About US</h1>
+    <p class="tagline"><strong><em>Driven by Innovation, Fueled by Passion. Explore the boundless horizons of robotics.</em></strong></p>
+  </div>
+</header>
 
-      <div class="info-container">
-        <div class="scene-take-roll">
-          <div class="scene">
-            <p class="text">Scene:</p>
-            <p class="scene__text">RIGNITC</p>
-          </div>
-          <div class="take">
-            <p class="text">Take:</p>
-            <p class="take__text">2</p>
-          </div>
-          <div class="roll">
-            <p class="text">Roll:</p>
-            <p class="roll__text">A</p>
-          </div>
-        </div>
-
-        <div class="date-prod-sound">
-          <div class="date-prod">
-            <div class="date">
-              <p class="text text--padded">Date:</p>
-              <p class="date__text">May 2012</p>
-            </div>
-            <div class="prod">
-              <p class="text text--padded">Place:</p>
-              <p class="prod__text">NIT Calicut</p>
-            </div>
-          </div>
-          <div class="sound">
-            <p class="text text--padded">Sound:</p>
-            <p class="sound__text">Echoes of Innovation</p>
-          </div>
-        </div>
-
-        <div class="director">
-          <p class="text text--padded">Faculty Supervisor:</p>
-          <p class="director__text">Dr. Sudheer A.P.</p>
-        </div>
-        <div class="cinematographer">
-          <p class="text text--padded">Team Captain:</p>
-          <p class="cinematographer__text">Jibin Rajan Varghese</p>
-        </div>
-      </div>
-    </div>
+<div class="hero" id="heroWrap">
+  <div class="image-scene" id="imageScene">
+    <span class="bg-text">How it all began...</span>
+    <img src="../assets/images/about/image.png" alt="About image showing robotics" />
   </div>
 </div>
 
-<!-- Interaction script: cursor-driven 3D hover effect (only behavior change) -->
+<p class="hero-caption">RIG Members of the B10 Batch with Prof. Sudheer A.P.</p>
+
+
+<p class="intro">
+  The Robotics Interest Group (RIG) is a vibrant community at NIT Calicut where passion for robotics drives innovation and fosters a collaborative spirit. We bring together students from diverse engineering backgrounds, each contributing their unique expertise to the development of cutting-edge robotic solutions. More than just an extracurricular, RIG ignites curious minds through workshops, open labs and hands-on projects.
+</p>
+
+<section class="columns">
+  <div class="col left-col">
+    <h2>Where it all began</h2>
+    <p>
+      In 2011, a group of students became enthused about participating in RoboCon 2012. Despite efforts to construct robots during holidays, they faced funding challenges and were asked to prove credibility. Undeterred, the group broadened their scope and sought guidance, eventually forming a cohesive team of 14 students under the mentorship of Mr. Sudheer A.P.
+    </p>
+    <p>
+      Their first creation, Plotterbot v1.0, helped establish credibility at the institute. They restored lab equipment, secured extended lab access, and continued working through breaks. A pivotal presentation on <strong>May 20</strong> led to official recognition of the Robotics Interest Group (RIG) and funding that enabled participation in RoboCon 2013.
+    </p>
+    <p class="muted">(This section tells the origin story and key milestones that helped launch RIG.)</p>
+  </div>
+
+  <div class="col right-col">
+    <h2>Way Forward</h2>
+    <p>
+      RIG now stands as a community defined by resilience and creativity. We continue to run workshops, mentor newcomers, and pursue projects that push the boundaries of what’s possible. Our focus is to inspire and educate, creating pathways for students to contribute to robotics research and real-world applications.
+    </p>
+
+    <h2 style="margin-top:18px;">What We Do?</h2>
+    <p>
+      UNLEASH INNOVATION — We organise hands-on workshops, open lab sessions, collaborative team projects, and competition prep. Our activities range from introductory electronics and programming sessions to advanced system design and deployment.
+    </p>
+    <p class="muted">(Workshops, outreach, project mentorship, competitions and community-building.)</p>
+  </div>
+</section>
+</div>
+
 <script>
-(function () {
-  const container = document.querySelector('.clappercontainer');
-  if (!container) return;
+(function(){
+  const wrap = document.getElementById('heroWrap');
+  const scene = document.getElementById('imageScene');
+  const img = scene && scene.querySelector('img');
+  if (!wrap || !scene) return;
 
-  // match the CSS scale
-  const scaleStr = getComputedStyle(container).getPropertyValue('--scale-factor') || "1.0";
-  const SCALE = parseFloat(scaleStr);
+  let enabled = window.innerWidth > 720;
 
-  // bounding rect refresh helpers
-  let rect = container.getBoundingClientRect();
-  const refreshRect = () => { rect = container.getBoundingClientRect(); };
-  window.addEventListener('resize', refreshRect);
-  window.addEventListener('scroll', refreshRect, true);
+  function handleMove(e){
+    if (!enabled) return;
+    const rect = wrap.getBoundingClientRect();
+    const cx = rect.left + rect.width/2;
+    const cy = rect.top + rect.height/2;
+    const mouseX = (e.clientX || (e.touches && e.touches[0].clientX));
+    const mouseY = (e.clientY || (e.touches && e.touches[0].clientY));
+    if (mouseX == null || mouseY == null) return;
+    const dx = (mouseX - cx) / rect.width;
+    const dy = (mouseY - cy) / rect.height;
+    const rotX = (-dy * 6).toFixed(2);
+    const rotY = (dx * 8).toFixed(2);
 
-  // interaction parameters (tweak if you want stronger/weaker)
-  const MAX_ROT_Y = 18; // degrees for left-right
-  const MAX_ROT_X = 12; // degrees for up-down
-  const BASE_Z = 6;     // base translateZ in px
-  const EXTRA_Z = 40;   // additional depth based on distance
-
-  let raf = null;
-
-  function applyTransform(rx, ry, tz, immediate=false) {
-    // include scale so visual size remains scaled
-    const transform = `scale(${SCALE}) rotateY(${ry}deg) rotateX(${rx}deg) translateZ(${tz}px)`;
-    container.style.transform = transform;
-    if (immediate) container.style.transition = 'transform 0s';
+    scene.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(0px)`;
+    if (img) img.style.transform = `scale(1)`; // no jump
   }
 
-  container.addEventListener('mousemove', (e) => {
-    // normalized coords -0.5 .. 0.5
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
+  function reset(){
+    scene.style.transform = `rotateX(0deg) rotateY(0deg) translateZ(0px)`;
+    if (img) img.style.transform = `scale(1)`;
+  }
 
-    const rotateY = x * MAX_ROT_Y;
-    const rotateX = -y * MAX_ROT_X;
+  function addListeners(){
+    wrap.addEventListener('mousemove', handleMove);
+    wrap.addEventListener('touchmove', handleMove, {passive:true});
+    wrap.addEventListener('mouseleave', reset);
+    wrap.addEventListener('touchend', reset);
+  }
+  function removeListeners(){
+    wrap.removeEventListener('mousemove', handleMove);
+    wrap.removeEventListener('touchmove', handleMove);
+    wrap.removeEventListener('mouseleave', reset);
+    wrap.removeEventListener('touchend', reset);
+    reset();
+  }
 
-    const distance = Math.hypot(x, y);
-    const translateZ = BASE_Z + distance * EXTRA_Z;
+  if (enabled) addListeners();
 
-    if (raf) cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(() => {
-      applyTransform(rotateX, rotateY, translateZ);
-    });
+  window.addEventListener('resize', ()=>{
+    const was = enabled;
+    enabled = window.innerWidth > 720;
+    if (enabled && !was) addListeners();
+    if (!enabled && was) removeListeners();
   });
-
-  container.addEventListener('mouseenter', () => {
-    // faster, snappier transition when moving starts
-    container.classList.add('hovering');
-    container.style.transition = 'transform 0.06s ease-out';
-  });
-
-  container.addEventListener('mouseleave', () => {
-    container.classList.remove('hovering');
-    // return to neutral (still keep visual scale)
-    container.style.transition = 'transform 0.6s cubic-bezier(.2,.9,.2,1)';
-    applyTransform(0, 0, 0);
-    if (raf) { cancelAnimationFrame(raf); raf = null; }
-  });
-
-  // ensure rect is accurate for initial interactions
-  refreshRect();
 })();
 </script>
-
 </body>
 </html>

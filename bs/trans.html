@@ -39,11 +39,35 @@
       height: 40px;
       background: repeating-linear-gradient(45deg, white 0 20px, black 20px 40px);
     }
+
+    /* Blackout overlay */
+    .blackout {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2rem;
+      font-family: sans-serif;
+    }
   </style>
 </head>
 <body>
   <div class="clapboard-wrapper">
     <div class="clapboard"></div>
+  </div>
+
+  <!-- Fade-to-black section placeholder -->
+  <div class="blackout">
+    <div>✨ Your Section Here ✨</div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -52,16 +76,9 @@
     gsap.registerPlugin(ScrollTrigger);
 
     // Clapboard stripe animation (loop)
-    gsap.to(".clapboard::before", {
-      keyframes: {
-        "0%": { transform: "rotateX(0deg)" },
-        "50%": { transform: "rotateX(-30deg)" },
-        "100%": { transform: "rotateX(0deg)" }
-      },
-      duration: 2,
-      repeat: -1,
-      ease: "power1.inOut"
-    });
+    // (⚠️ pseudo elements like ::before cannot be animated directly by GSAP, 
+    //   so this won't work unless you make that stripe a real child element)
+    // For now we'll skip animating it.
 
     // Scroll-driven 3D zoom & tilt
     gsap.to(".clapboard", {
@@ -79,26 +96,26 @@
         const baseHeight = 150;
         const scaleX = vw / baseWidth;
         const scaleY = vh / baseHeight;
-        return Math.max(scaleX, scaleY)* 2.5;
+        return Math.max(scaleX, scaleY) * 3.5;
       },
-      rotationX: 90,  // tilt forward
-      rotationY: -140, // slight horizontal rotation
-      rotationZ: 50,   // subtle twist
-      x: 50,          // move bottom-right slightly forward in 3D space
+      rotationX: 40,
+      rotationY: -30,
+      rotationZ: -10,
+      x: 50,
       y: 30,
-      z: 100,         // push forward
+      z: 100,
       ease: "power2.inOut"
     });
 
-    // Background fade to black
-    gsap.to("body", {
+    // Background fade to black overlay at the very end
+    gsap.to(".blackout", {
       scrollTrigger: {
         trigger: "body",
-        start: "top top",
-        end: "bottom bottom",
+        start: "90% bottom",   // near end
+        end: "bottom bottom",  // fully end
         scrub: true
       },
-      backgroundColor: "black",
+      opacity: 1,
       ease: "power2.inOut"
     });
 
