@@ -38,10 +38,15 @@
   .outercontainer {
     width: 100%;
     height: 100vh;
-    padding-top: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
+    /* perspective for 3D effect */
+    perspective: 1600px;
+    -webkit-perspective: 1600px;
+
+    /* prevent visual overflow (stops the vertical scrollbar glitch when we scale/translate the clapboard) */
+    overflow: hidden;
   }
 
   .hinge {
@@ -92,10 +97,25 @@
     border-radius: 0 0 10px 10px;
   }
 
+  /* ---------- CHANGE: increase visual size by scaling (no layout resize) + prepare for 3D ---------- */
+
   .clappercontainer {
     width: 500px;
     height: 100%;
+    
+    /* preserve 3D for children */
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+
+    /* visual scale (increases overall size) - change only this value to scale more/less */
+    --scale-factor: 0.5;
+    transform-origin: center center;
+    transform: scale(var(--scale-factor));
+    transition: transform 0.12s ease-out;
+    will-change: transform;
   }
+
+  /* ---------- end size change ---------- */
 
   .clapper__top {
     width: 100%;
@@ -220,56 +240,36 @@
     background: #151515;
   }
 
-@keyframes clap {
-  0% { transform: rotate(0deg); }          /* Closed */
-  30% { transform: rotate(-20deg); }       /* Slowly open top */
-  35% { transform: rotate(-70deg); }       /* Fully open quickly */
-  40% { transform: rotate(0deg); }         /* Snap back closed */
-  100% { transform: rotate(0deg); }        /* Stay closed */
-}
+  @keyframes rotateUp {
+    0% { transform: rotate(0deg); }
+    96% { transform: rotate(-10deg); }
+    100% { transform: rotate(0deg); }
+  }
 
-.rotateUp {
-  transform-origin: left center;
-  animation: clap 4s forwards;
-  animation-delay: 3s; /* Wait 3 seconds before starting */
-}
+  .rotateUp {
+    transform-origin: left center;
+    animation: rotateUp 4s infinite;
+  }
 
-body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  background: white; /* start white */
-  overflow: hidden;
-}
+  /* original bottom overrides (kept exactly as in your file) */
+    .container { width: 700px; height: 700px; }
+  .clappercontainer { width: 700px; }
+  .clapper__top, .clapper__bottom { height: 80px; }
+  .hinge { width: 140px; height: 100px; }
+  .scene__text, .take__text, .roll__text { font-size: 2rem; }
 
-/* Zoom the clapperboard */
-@keyframes zoomClapper {
-  0% { transform: scale(1); }
-  100% { transform: scale(25); } /* zoom in big */
-}
+  /* ---------- small helpers for hover smoothing ---------- */
+  .clappercontainer.hovering { transition: transform 0.06s ease-out; }
 
-.outercontainer {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  animation: zoomClapper 3s ease-in 4s forwards; /* wait 4s, zoom 3s */
-}
-
-/* Replace with black after zoom */
-@keyframes replaceWithBlack {
-  0%, 99.9% { background: white; }
-  100% { background: black; }
-}
-
-body {
-  animation: replaceWithBlack 0.01s linear 7s forwards; 
-  /* 7s = 4s wait + 3s zoom */
-}
-
-
+  body {
+    display: flex;
+    justify-content: center;  /* horizontal */
+    align-items: center;      /* vertical */
+    height: 100vh;            /* full screen height */
+    margin: 0;
+  }
 </style>
+
 </head>
 <body>
 
@@ -343,6 +343,73 @@ body {
     </div>
   </div>
 </div>
+
+<!-- Interaction script: cursor-driven 3D hover effect (only behavior change) -->
+<script>
+(function () {
+  const container = document.querySelector('.clappercontainer');
+  if (!container) return;
+
+  // match the CSS scale
+  const scaleStr = getComputedStyle(container).getPropertyValue('--scale-factor') || "1.0";
+  const SCALE = parseFloat(scaleStr);
+
+  // bounding rect refresh helpers
+  let rect = container.getBoundingClientRect();
+  const refreshRect = () => { rect = container.getBoundingClientRect(); };
+  window.addEventListener('resize', refreshRect);
+  window.addEventListener('scroll', refreshRect, true);
+
+  // interaction parameters (tweak if you want stronger/weaker)
+  const MAX_ROT_Y = 18; // degrees for left-right
+  const MAX_ROT_X = 12; // degrees for up-down
+  const BASE_Z = 6;     // base translateZ in px
+  const EXTRA_Z = 40;   // additional depth based on distance
+
+  let raf = null;
+
+  function applyTransform(rx, ry, tz, immediate=false) {
+    // include scale so visual size remains scaled
+    const transform = `scale(${SCALE}) rotateY(${ry}deg) rotateX(${rx}deg) translateZ(${tz}px)`;
+    container.style.transform = transform;
+    if (immediate) container.style.transition = 'transform 0s';
+  }
+
+  container.addEventListener('mousemove', (e) => {
+    // normalized coords -0.5 .. 0.5
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+    const rotateY = x * MAX_ROT_Y;
+    const rotateX = -y * MAX_ROT_X;
+
+    const distance = Math.hypot(x, y);
+    const translateZ = BASE_Z + distance * EXTRA_Z;
+
+    if (raf) cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      applyTransform(rotateX, rotateY, translateZ);
+    });
+  });
+
+  container.addEventListener('mouseenter', () => {
+    // faster, snappier transition when moving starts
+    container.classList.add('hovering');
+    container.style.transition = 'transform 0.06s ease-out';
+  });
+
+  container.addEventListener('mouseleave', () => {
+    container.classList.remove('hovering');
+    // return to neutral (still keep visual scale)
+    container.style.transition = 'transform 0.6s cubic-bezier(.2,.9,.2,1)';
+    applyTransform(0, 0, 0);
+    if (raf) { cancelAnimationFrame(raf); raf = null; }
+  });
+
+  // ensure rect is accurate for initial interactions
+  refreshRect();
+})();
+</script>
 
 </body>
 </html>
