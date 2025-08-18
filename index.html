@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>RIGNITC | Robotics Interest Group</title>
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+
   <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.48/build/spline-viewer.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Tan+Memories&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,11 +45,32 @@
     }
 
     /* Robot scene extras */
-    .title {
-      position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-      font-size: 15rem; font-weight: bold; color: white; letter-spacing: 4px;
-      mix-blend-mode: difference; z-index: 900;
-    }
+.title {
+  position: absolute;
+  bottom: -200px; /* start off-screen */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 15rem;
+  font-weight: bold;
+  color: white;
+  letter-spacing: 4px;
+  mix-blend-mode: difference;
+  z-index: 900;
+
+  animation: slideUp 5.2s ease-out forwards;
+}
+
+@keyframes slideUp {
+  0% {
+    bottom: -200px;
+    opacity: 0;
+  }
+  100% {
+    bottom: 30px; /* final position */
+    opacity: 1;
+  }
+}
+
     .side-left {
       position: absolute; top: 0; left: 0; height: 100%; width: 120px;
       background: rgb(227,227,227);
@@ -102,7 +125,7 @@
     .ai-tagline {
       position: absolute;
       left: 50%; transform: translateX(-50%);
-      font-family: "Libre Caslon Display", serif;
+      font-family: "F3D Techno W00 Shadow", sans-serif;  
       font-size: 4rem;
       font-weight: bold;
       color: #fff;
@@ -134,7 +157,9 @@
     <a href="team/">Team</a>
     <a href="contact/">Contact</a>
   </div>
-  <button class="btn-sponsor">Sponsor Us</button>
+<a class="btn-sponsor" href="contact/?name=Jagadeesh&email=mummanajagadeesh97%40gmail.com&message=hw%20world">
+  Sponsor Us
+</a>
 </nav>
 
 
@@ -750,7 +775,7 @@
       color: #fff;
       font-family: "Libre Caslon Display", serif;
       margin: 0;
-      padding: 20px 0 !important; /* small vertical space */
+      padding: 40px 0 !important; /* small vertical space */
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -780,17 +805,28 @@
 
     // Dynamically load all images from companies folder
     const companySlider = document.getElementById('companySlider');
-    const companyImages = [
-      "assets/images/companies/ti.png",
-      "assets/images/companies/qualcomm.png",
-      "assets/images/companies/nvidia.png",
-      "assets/images/companies/isro.png",
-      "assets/images/companies/samsung.png",
-      "assets/images/companies/nawe.png"
-    ];
+const companyImages = [
+  "assets/images/companies/ti.png",
+  "assets/images/companies/qualcomm.png",
+  "assets/images/companies/nvidia.png",
+  "assets/images/companies/isro.png",
+  "assets/images/companies/samsung.png",
+  "assets/images/companies/nawe.png",
+  "assets/images/companies/aws.png",
+  "assets/images/companies/intel.png",
+  "assets/images/companies/ku.png",
+  "assets/images/companies/purdue.png",
+  "assets/images/companies/texas.png",
+  "assets/images/companies/ucdavis.png",
+  "assets/images/companies/visa.png",
+  "assets/images/companies/dxc.png",
+  "assets/images/companies/uidai.png",
+  "assets/images/companies/ns.png"
+];
+
 
     // To make infinite seamless scroll, duplicate enough times
-    const repeatTimes = 10; // increase if needed
+    const repeatTimes = 3; // increase if needed
     for (let i = 0; i < repeatTimes; i++) {
       companyImages.forEach(src => {
         const img = document.createElement('img');
@@ -856,7 +892,6 @@
     border: 1px solid #fff;
     padding: 5px 5px 45px; /* longer bottom padding for Polaroid effect */
     transition: all 0.8s ease;
-    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

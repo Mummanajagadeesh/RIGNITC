@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RIGNITC | Achievements</title>
+<link rel="stylesheet" href="../assets/css/navbar.css">
+<link rel="icon" type="image/png" href="../assets/images/logo.png">
+
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&family=Libre+Caslon+Display:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #000;
+      --fg: #fff;
+      --fg-opa: rgba(255,255,255,0.06); /* only white with opacity for depth */
+      --max-width: 1100px;
+      --radius: 14px;
+      --gap: 22px;
+    }
+
+    /* Reset */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      background:var(--bg);
+      color:var(--fg);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.35;
+      padding-bottom:80px;
+    }
+
+    /* NAV */
+    /* Header / Hero */
+    main{
+      max-width:var(--max-width);
+      margin:120px auto 80px;
+      padding:0 22px;
+    }
+
+    .hero{
+      display:flex;
+      gap:28px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:28px;
+      position:relative;
+    }
+
+    .hero .left{
+      flex:1 1 60%;
+    }
+    h1{
+      font-family: "Libre Caslon Display", serif;
+      font-size: clamp(2rem, 6vw, 3.6rem);
+      letter-spacing: -1px;
+      margin:0 0 6px;
+      line-height:0.95;
+      text-transform:uppercase;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    .tagline{
+      color:rgba(255,255,255,0.85);
+      font-weight:600;
+      margin-top:10px;
+      font-size:1rem;
+      opacity:0.95;
+    }
+
+    /* Decorative geometric grid behind hero */
+    .hero:before{
+      content:"";
+      position:absolute;
+      right:-80px;
+      top:-30px;
+      width:400px;height:400px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.03) 0 1px, transparent 1px),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 40px);
+      transform:rotate(10deg);
+      border-radius:12px;
+      pointer-events:none;
+      mix-blend-mode:screen;
+    }
+
+    /* Achievements grid */
+    .achievements{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap:var(--gap);
+      margin-top:12px;
+    }
+
+    .achievement-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent 50%);
+      border:1px solid rgba(255,255,255,0.06);
+      padding:20px;
+      border-radius:var(--radius);
+      position:relative;
+      overflow:hidden;
+      min-height:120px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s ease, background .28s ease;
+      transform-origin:center;
+      isolation:isolate;
+      opacity:0;
+      transform: translateY(10px) scale(0.995);
+    }
+
+    /* reveal animation (js adds .show with delay) */
+    .achievement-card.show{
+      opacity:1;
+      transform: translateY(0) scale(1);
+      transition-delay:0s;
+    }
+
+    /* left numeric badge */
+    .achievement-badge{
+      font-weight:800;
+      font-size:1.4rem;
+      letter-spacing:0.6px;
+      color:var(--fg);
+      border-left:3px solid var(--fg);
+      padding-left:12px;
+      margin-bottom:8px;
+      display:inline-block;
+    }
+
+    .achievement-title{
+      font-weight:700;
+      font-size:1.06rem;
+      color:var(--fg);
+      margin-bottom:8px;
+    }
+
+    .achievement-description{
+      color:rgba(255,255,255,0.77);
+      font-weight:800;
+      font-size:0.98rem;
+      line-height:1.45;
+      margin-top:6px;
+    }
+
+    /* tiny corner accent */
+    .achievement-card:after{
+      content:"";
+      position:absolute;
+      right:-30px; top:-30px;
+      width:90px;height:90px;
+      border: 2px solid rgba(255,255,255,0.03);
+      transform: rotate(25deg);
+      pointer-events:none;
+    }
+
+    /* hover invert / pop */
+    .achievement-card:hover{
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 30px 60px rgba(255,255,255,0.03);
+      background:var(--fg); /* invert on hover - white bg */
+      color:var(--bg); /* text will switch to black */
+    }
+    .achievement-card:hover .achievement-title,
+    .achievement-card:hover .achievement-badge{
+      color:var(--bg);
+    }
+    .achievement-card:hover .achievement-description{
+      color:rgba(0,0,0,0.75);
+    }
+    .achievement-card:hover .achievement-badge{ border-left-color:var(--bg) }
+
+    /* small footer text and empty state */
+    .empty{
+      text-align:center;
+      color:rgba(255,255,255,0.45);
+      padding:40px 18px;
+      border:1px dashed rgba(255,255,255,0.04);
+      border-radius:12px;
+    }
+
+    /* Responsive / small screens */
+    @media (max-width:720px){
+      nav#navbar{ top:12px; padding:8px 14px; width:calc(100% - 28px) }
+      .nav-links{ display:none }
+      .hero{ flex-direction:column; align-items:flex-start; gap:12px }
+      .hero:before{ display:none }
+      .achievement-badge{ font-size:1.06rem }
+    }
+
+    /* subtle animated underline for headings */
+    h1 + .tagline{ position:relative; padding-bottom:8px; }
+    h1 + .tagline:after{
+      content:"";
+      position:absolute;
+      left:0;bottom:0;
+      height:2px;
+      width:120px;
+      background:var(--fg);
+      transform-origin:left;
+      transform:scaleX(.01);
+      transition: transform .6s cubic-bezier(.2,.9,.3,1);
+    }
+    .hero:hover h1 + .tagline:after{ transform:scaleX(1) }
+
+    /* accessible focus states */
+    a:focus, .btn-sponsor:focus { outline:2px dashed rgba(255,255,255,0.12); outline-offset:4px; }
+
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="dark" id="navbar" aria-label="Main navigation">
+    <a href="../" class="logo" aria-label="Home">
+      <img src="../assets/images/logo.png" alt="RIGNITC logo">
+    </a>
+
+    <div class="nav-links" role="navigation" aria-label="Site links">
+      <a href="../about/">About Us</a>
+      <a href="../projects/">Projects</a>
+      <a href="../achievements/">Achievements</a>
+      <a href="../events/">Events</a>
+      <a href="../team/">Team</a>
+      <a href="../contact/">Contact</a>
+    </div>
+
+    <a class="btn-sponsor" href="../contact/?name=Jagadeesh&email=mummanajagadeesh97%40gmail.com&message=hw%20world">
+      Sponsor
+    </a>
+  </nav>
+
+  <main>
+    <section class="hero" aria-labelledby="ach-head">
+      <div class="left">
+        <h1 id="ach-head">Achievements</h1>
+        <div class="tagline">We don’t always take first place, but we never give up</div>
+      </div>
+
+      <!-- optional small stat column -->
+      <div class="right-stats" style="text-align:right; min-width:140px;">
+        <div style="font-weight:800; font-size:1.6rem;"></div>
+        <div style="margin-top:6px; color:rgba(255,255,255,0.72); font-size:0.95rem;"></div>
+      </div>
+    </section>
+
+    <!-- Achievements container -->
+    <div class="achievements" id="achievements" aria-live="polite">
+      <!-- JS will populate cards here -->
+      <div class="empty" id="empty-placeholder" style="display:none;">
+        No achievements found. Drop an <code>achievements.json</code> next to this page with an array of {title,description} objects.
+      </div>
+    </div>
+  </main>
+
+  <script>
+    async function loadAchievements(){
+      const container = document.getElementById('achievements');
+      const empty = document.getElementById('empty-placeholder');
+
+      try{
+        const resp = await fetch('achievements.json', {cache: "no-cache"});
+        if(!resp.ok) throw new Error('Network response not ok');
+        const data = await resp.json();
+
+        if(!Array.isArray(data) || data.length === 0){
+          empty.style.display = 'block';
+          return;
+        }
+
+        empty.style.display = 'none';
+        // create cards with small stagger for reveal
+        data.forEach((item, idx) => {
+          const card = document.createElement('article');
+          card.className = 'achievement-card';
+          card.setAttribute('tabindex','0');
+          // badge uses index+1 or item.badge if provided
+          const badgeVal = item.badge ?? (idx + 1);
+          card.innerHTML = `
+            <div>
+              <div class="achievement-badge">#${badgeVal}</div>
+              <div class="achievement-title">${escapeHtml(item.title)}</div>
+              <div class="achievement-description">${escapeHtml(item.description)}</div>
+            </div>
+          `;
+          container.appendChild(card);
+
+          // staggered reveal
+          setTimeout(()=> card.classList.add('show'), 90 * idx);
+        });
+
+      }catch(err){
+        console.error('Error loading achievements.json', err);
+        empty.style.display = 'block';
+        empty.textContent = 'Could not load achievements.json — check the console for details.';
+      }
+    }
+
+    // basic HTML escaping to avoid accidental injection when inserting JSON strings
+    function escapeHtml(str = ''){
+      return String(str)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#39;');
+    }
+
+    // Kick off
+    loadAchievements();
+  </script>
+</body>
+</html>

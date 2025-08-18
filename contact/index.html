@@ -4,16 +4,20 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Contact Us</title>
+
+<!-- Fonts & Icons -->
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Inter:wght@300;600;800&family=Poppins:wght@100;200;400;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link href="https://db.onlinewebfonts.com/c/f39c9c54bc3f4f701ca3b18d675dde06?family=F3D+Techno+W00+Shadow" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" href="../assets/css/navbar.css">
+<link rel="icon" type="image/png" href="../assets/images/logo.png">
+
 <style>
 :root {
   --bg: #000;
   --fg: #fff;
   --max-width: 1100px;
-  --gap: 40px;
+  --gap: 50px;
 }
 
 html, body {
@@ -23,107 +27,185 @@ html, body {
   color: var(--fg);
   font-family: "Inter", sans-serif;
   height: 100%;
+  overflow-x: hidden;
 }
 
 .page {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 160px 28px 48px 28px; /* extra top padding to avoid navbar overlap */
+  padding: 160px 28px 80px;
   box-sizing: border-box;
+  position: relative;
 }
+
+.page::before, .page::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 120px;
+  height: 120px;
+  border: 3px solid white;
+  filter: blur(1px);
+  opacity: 0.08;
+}
+.page::before { left: 10%; border-radius: 50%; }
+.page::after { right: 10%; border-radius: 50%; }
 
 .contact-wrapper {
   display: flex;
   gap: var(--gap);
   align-items: flex-start;
   flex-wrap: wrap;
+  justify-content: space-between;
+  animation: fadeInUp 1s ease;
+}
+
+/* LEFT SIDE (Socials + Captains) */
+.left-side {
+  flex: 0.4;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 /* Socials */
 .socials {
   display: flex;
-  flex-direction: column; /* stack text above icons */
-  gap: 12px; /* space between "Socials" and icons */
+  flex-direction: column;
+  gap: 18px;
 }
 
 .socials span {
   font-family: "Libre Caslon Display", serif;
-  font-size: 2rem;
+  font-size: 2.4rem;
+  letter-spacing: 1px;
+  position: relative;
 }
 
-/* icons row below header */
+.socials span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 50px;
+  height: 2px;
+  background: #fff;
+}
+
 .socials .icons {
   display: flex;
-  flex-direction: row; /* all icons side by side */
-  gap: 20px;
+  gap: 26px;
+  flex-wrap: wrap;
 }
 
 .socials .icons a {
   color: var(--fg);
-  text-decoration: none;
-  font-size: 2rem;
-  transition: transform 0.3s ease, color 0.3s ease;
+  font-size: 2.2rem;
+  opacity: 0.8;
+  transition: all 0.35s ease;
+  position: relative;
 }
-
 .socials .icons a:hover {
-  transform: scale(1.2);
-  color: #fff;
+  opacity: 1;
+  text-shadow: 0 0 2px #fff, 0 0 2px #fff;
+  transform: scale(1.1);
 }
 
+/* Captains Section */
+.captains-section h2 {
+  font-family: "Libre Caslon Display", serif;
+  font-size: 1.6rem;
+  font-weight: normal;
+  margin-bottom: 20px;
+}
 
-/* Contact form wrapper */
-.contact-form-wrapper {
-  flex: 1;
+.captains {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
   gap: 20px;
+}
+
+.captain {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* RIGHT SIDE (Form) */
+.contact-form-wrapper {
+  flex: 0.55;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
 .site-title {
   margin: 0;
-  font-family: "Libre Caslon Display", serif; /* Libre font */
-  font-size: 3rem;
+  font-family: "Libre Caslon Display", serif;
+  font-size: 3.5rem;
   text-align: right;
+  letter-spacing: 2px;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.site-title::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  width: 120px;
+  background: var(--fg);
+  transform-origin: right;
+  transform: scaleX(.01);
+  transition: transform .6s cubic-bezier(.2,.9,.3,1);
+}
+.contact-form-wrapper:hover .site-title::after {
+  transform: scaleX(1);
 }
 
 .contact-form {
   width: 100%;
-  max-width: 500px;
+  max-width: 520px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
 .contact-form input,
 .contact-form textarea {
-  padding: 12px;
-  border: 1px solid #fff;
-  border-radius: 4px;
-  background: #000;
+  padding: 14px 16px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
   color: var(--fg);
-  font-family: "Inter", sans-serif;
   font-size: 1rem;
+  transition: border-color 0.3s ease, background 0.3s ease;
 }
 
-/* Send Message button */
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
 .contact-form button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-family: "F3D Techno W00 Shadow", sans-serif;
-  font-weight: normal;
-  font-size: 3.5rem;
+  font-size: 3rem;
   color: #fff;
-  text-decoration: none;
-  padding: 12px 28px;
+  padding: 14px 34px;
   border: 2px solid #fff;
   border-radius: 50px;
   position: relative;
   overflow: hidden;
+  background: #000;
   transition: all 0.4s ease;
   cursor: pointer;
-  background: #000;
 }
 
 .contact-form button::before {
@@ -131,48 +213,68 @@ html, body {
   position: absolute;
   top: 0;
   left: -100%;
-  width: 100%;
+  width: 120%;
   height: 100%;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0.2),
-    rgba(255, 255, 255, 0.4),
-    rgba(255, 255, 255, 0.2)
-  );
+  background: linear-gradient(120deg, rgba(255,255,255,0.25), rgba(255,255,255,0.6), rgba(255,255,255,0.25));
   transform: skewX(-25deg);
   transition: all 0.5s ease;
 }
 
-.contact-form button:hover::before {
-  left: 200%;
-}
-
+.contact-form button:hover::before { left: 200%; }
 .contact-form button:hover {
   color: #000;
   background: #fff;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 25px rgba(255,255,255,0.75);
   transform: scale(1.05);
 }
 
 .contact-form button span {
-  margin-left: 8px;
-  display: inline-block;
+  margin-left: 10px;
   transition: transform 0.3s ease;
 }
+.contact-form button:hover span { transform: translateX(8px); }
 
-.contact-form button:hover span {
-  transform: translateX(6px);
+/* Address + Map */
+.map-address-wrapper {
+  margin-top: 60px;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.map-address-wrapper .address {
+  flex: 1;
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.map-frame {
+  flex: 1;
+  min-width: 320px;
+  height: 300px;
+  border: 2px solid #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  filter: grayscale(100%) contrast(1.1);
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
+
 <script src="https://kit.fontawesome.com/1f1c2a06b3.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<!-- Navbar -->
-<nav id="navbar">
+<nav class="dark" id="navbar">
   <a href="../" class="logo">
-  <img src="../assets/images/logo.png" alt="Logo">
-</a>
+    <img src="../assets/images/logo.png" alt="Logo">
+  </a>
   <div class="nav-links">
     <a href="../about/">About Us</a>
     <a href="../projects/">Projects</a>
@@ -181,27 +283,49 @@ html, body {
     <a href="../team/">Team</a>
     <a href="../contact/">Contact</a>
   </div>
-  <button class="btn-sponsor">Sponsor Us</button>
+  <a class="btn-sponsor" href="../contact/?name=Jagadeesh&email=mummanajagadeesh97%40gmail.com&message=hw%20world">
+    Sponsor Us
+  </a>
 </nav>
 
-<!-- Page content -->
 <div class="page">
   <div class="contact-wrapper">
-    <!-- Socials -->
-<div class="socials">
-  <span>Socials</span>
-  <div class="icons">
-    <a href="https://instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
-    <a href="https://linkedin.com/" target="_blank"><i class="fab fa-linkedin"></i></a>
-    <a href="https://github.com/" target="_blank"><i class="fab fa-github"></i></a>
-    <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
-  </div>
-</div>
+    
+    <!-- Left side: Socials + Captains -->
+    <div class="left-side">
+      <div class="socials">
+        <span>SOCIALS</span>
+        <div class="icons">
+          <a href="https://www.instagram.com/rig_nitc/" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://github.com/rignitc" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/company/rignitc" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/user/RIGNITC" target="_blank"><i class="fab fa-youtube"></i></a>
+          <a href="https://rignitc.github.io/blogs/" target="_blank"><i class="fas fa-blog"></i></a>
+        </div>
+      </div>
 
+      <div class="captains-section">
+        <h2>Current Team Captains</h2>
+        <div class="captains">
+          <div class="captain">
+            <strong>Piyush Kumar</strong><br>
+            B221115ME<br>
+            <a href="mailto:piyush_b221115me@nitc.ac.in" style="color: inherit; text-decoration: none;">piyush_b221115me@nitc.ac.in</a><br>
+            <a href="tel:+919693292761" style="color: inherit; text-decoration: none;">+91-9693292761</a>
+          </div>
+          <div class="captain">
+            <strong>Krishnachandran R</strong><br>
+            B220972ME<br>
+            <a href="mailto:krishnachandran_b220972me@nitc.ac.in" style="color: inherit; text-decoration: none;">krishnachandran_b220972me@nitc.ac.in</a><br>
+            <a href="tel:+917356822552" style="color: inherit; text-decoration: none;">+91-7356822552</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <!-- Contact form -->
+    <!-- Right side: Contact form -->
     <div class="contact-form-wrapper">
-      <h1 class="site-title">Contact US</h1>
+      <h1 class="site-title">CONTACT US</h1>
       <form class="contact-form" action="https://formspree.io/f/xqaloprq" method="POST">
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email" required>
@@ -209,20 +333,31 @@ html, body {
         <button type="submit">Send Message <span>&rarr;</span></button>
       </form>
     </div>
-  </div>
-</div>
-<script>
-  // Wait for the DOM to load
-  document.addEventListener("DOMContentLoaded", () => {
-    // Parse URL parameters
-    const params = new URLSearchParams(window.location.search);
 
-    // Select the form fields
+  </div>
+
+  <div class="map-address-wrapper">
+    <div class="address">
+      <h2>FIND US</h2>
+      MECHATRONICS/ROBOTICS LAB<br>
+      MECHANICAL ENGINEERING DEPARTMENT<br>
+      NATIONAL INSTITUTE OF TECHNOLOGY CALICUT<br>
+      P.O.- KOZHIKODE, KERALA, INDIA<br>
+      PIN- 673601
+    </div>
+    <div class="map-frame">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7824.359159417558!2d75.9297534915051!3d11.321581305448928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba642fd7d2cddaf%3A0x99f0e36e2a913519!2sRobotics%20Interest%20Group!5e0!3m2!1sen!2sin!4v1755514521054!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
     const nameField = document.querySelector('.contact-form input[name="name"]');
     const emailField = document.querySelector('.contact-form input[name="email"]');
     const messageField = document.querySelector('.contact-form textarea[name="message"]');
-
-    // Fill the fields if URL parameters exist
     if (params.has('name')) nameField.value = params.get('name');
     if (params.has('email')) emailField.value = params.get('email');
     if (params.has('message')) messageField.value = params.get('message');
