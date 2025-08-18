@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Projects</title>
+
+<!-- Fonts & Icons (kept) -->
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Inter:wght@300;600;800&family=Poppins:wght@100;200;400;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://db.onlinewebfonts.com/c/f39c9c54bc3f4f701ca3b18d675dde06?family=F3D+Techno+W00+Shadow" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="../assets/css/navbar.css">
+<link rel="icon" type="image/png" href="../assets/images/logo.png">
+
+<style>
+:root{
+  --bg:#000;
+  --fg:#fff;
+  --muted: rgba(255,255,255,0.72);
+  --muted-2: rgba(255,255,255,0.55);
+  --glass: rgba(255,255,255,0.03);
+  --outline: rgba(255,255,255,0.10);
+  --radius:12px;
+  --gap:55px;
+  --max-width:1200px;
+  --transition: 300ms cubic-bezier(.2,.9,.3,1);
+}
+
+/* base */
+html,body{
+  height:100%;
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* page container */
+.page{
+  max-width:var(--max-width);
+  margin:0 auto;
+  padding:140px 24px 80px;
+  box-sizing:border-box;
+  position:relative;
+}
+
+/* keep animated underline under title (restored) */
+.site-title{
+  margin:0 0 44px;
+  font-family:"Libre Caslon Display", serif;
+  font-size:3rem;
+  text-align:right;
+  letter-spacing:1px;
+  position:relative;
+  padding-bottom:12px;
+}
+.site-title::after{
+  content:"";
+  position:absolute;
+  right:0;
+  bottom:0;
+  height:2px;
+  width:140px;
+  background:var(--fg);
+  transform-origin:right;
+  transform:scaleX(.01);
+  transition: transform .6s cubic-bezier(.2,.9,.3,1);
+  opacity:0.95;
+}
+
+
+.page:hover .site-title::after{ transform:scaleX(1); }
+
+/* projects container: rows of two */
+.projects-container{
+  display:flex;
+  flex-direction:column;
+  gap:var(--gap);
+}
+
+/* each row holds up to two cards */
+.row{
+  display:flex;
+  gap:50px;
+  align-items:stretch;
+  transition: all var(--transition);
+}
+
+/* card base */
+.card{
+  flex:1 1 0%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:3px solid var(--outline);
+  border-radius: var(--radius);
+  border-color:#fff;
+  overflow:hidden;
+  display:flex;
+  gap:16px;
+  padding:18px;
+  box-sizing:border-box;
+  transition: flex var(--transition), box-shadow var(--transition), border-color var(--transition);
+  min-height:140px;
+  position:relative;
+}
+
+/* collapsed sibling (reduced size) */
+.row.expanded-left .card.left,
+.row.expanded-right .card.right{
+  /* expanded classes override below */
+}
+.row.expanded-left .card.left{
+  flex:2.6 1 0%;
+  box-shadow: 0 18px 40px rgba(255,255,255,0.03);
+  border-color: #fff;
+}
+.row.expanded-left .card.right{
+  flex:0.4 1 0%;
+  opacity:0.6;
+  transform: translateX(0);
+}
+
+/* expanding right card to left (mirror) */
+.row.expanded-right .card.right{
+  flex:2.6 1 0%;
+  box-shadow: 0 18px 40px rgba(255,255,255,0.03);
+  border-color: #fff;
+}
+.row.expanded-right .card.left{
+  flex:0.4 1 0%;
+  opacity:0.6;
+}
+
+/* when no expansion (default) both equal */
+.card:hover{ transform: translateY(-4px); }
+
+/* media column */
+.media{
+  width:36%;
+  min-width:140px;
+  border-radius:8px;
+  overflow:hidden;
+  background:#0b0b0b;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.media img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+/* info column */
+.info{
+  flex:1 1 auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-width:0;
+  gap:8px;
+}
+
+/* title + meta */
+.title{
+  margin:0;
+  font-family:"Poppins", "Inter", sans-serif;
+  font-weight:600;
+  font-size:1.05rem;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.meta{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  color:var(--muted-2);
+  font-size:0.88rem;
+}
+.chips{ display:flex; gap:8px; flex-wrap:wrap; }
+.chip{
+  font-size:0.78rem;
+  color:var(--muted-2);
+  border:1px solid rgba(255,255,255,0.06);
+  padding:4px 8px;
+  border-radius:999px;
+  background:transparent;
+}
+
+/* short description */
+.short{
+  margin:0;
+  color:var(--muted);
+  font-size:0.95rem;
+  line-height:1.45;
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+/* actions styled as real buttons (made more prominent) */
+.actions{
+  margin-top:8px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+/* button styles (black & white only) */
+.btn{
+  -webkit-appearance:none;
+  appearance:none;
+  border:1px solid rgba(255,255,255,0.12);
+  background:transparent;
+  color:var(--fg);
+  padding:8px 14px;
+  border-radius:10px;
+  font-size:0.9rem;
+  cursor:pointer;
+  transition: background var(--transition), border-color var(--transition), transform .08s ease;
+}
+.btn:active{ transform: translateY(1px); }
+.btn.primary{
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.18);
+}
+.btn.ghost{
+  background: transparent;
+  border-color: rgba(255,255,255,0.08);
+}
+.btn:hover{ background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
+
+/* extra area (hidden until expanded) - reveals inside expanded card */
+.extra{
+  margin-top:12px;
+  color:var(--muted);
+  font-size:0.95rem;
+  line-height:1.6;
+  max-height:0;
+  overflow:hidden;
+  opacity:0;
+  transition: max-height .36s ease, opacity .28s linear;
+}
+
+/* when the containing row is expanded, show the extra for the expanded card */
+.row.expanded-left .card.left .extra,
+.row.expanded-right .card.right .extra{
+  max-height:420px;
+  opacity:1;
+}
+
+/* collapsed card extra remains hidden */
+.row.expanded-left .card.right .extra,
+.row.expanded-right .card.left .extra{
+  max-height:0;
+  opacity:0;
+}
+
+/* keyboard focus outline */
+.card:focus-within, .btn:focus{
+  outline: 3px solid rgba(255,255,255,0.04);
+  outline-offset: 3px;
+}
+
+/* responsive: single column on small screens */
+@media (max-width:880px){
+  .row{ flex-direction:column; gap:16px; }
+  .media{ width:100%; min-height:160px; }
+  .card{ min-height:160px; }
+  /* expanded behavior: when a card is expanded, show its extra below (vertical) */
+  .row.expanded-left .card,
+  .row.expanded-right .card{
+    flex: 1 1 auto;
+    opacity:1;
+  }
+  .row.expanded-left .card .extra,
+  .row.expanded-right .card .extra{
+    max-height:420px;
+    opacity:1;
+  }
+}
+
+/* helpful utility for single-card rows (odd count) */
+.row.single .card{ flex:1 1 0%; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR left unchanged -->
+<nav class="dark" id="navbar">
+  <a href="../" class="logo">
+    <img src="../assets/images/logo.png" alt="Logo">
+  </a>
+  <div class="nav-links">
+    <a href="../about/">About Us</a>
+    <a href="../projects/">Projects</a>
+    <a href="../achievements/">Achievements</a>
+    <a href="../events/">Events</a>
+    <a href="../team/">Team</a>
+    <a href="../contact/">Contact</a>
+  </div>
+  <a class="btn-sponsor" href="../contact/?name=Sponsor&email=your@email.com&message=I%20want%20to%20sponsor">
+    Sponsor Us
+  </a>
+</nav>
+
+<div class="page">
+  <h1 class="site-title">PROJECTS</h1>
+
+  <div class="projects-container" id="projects-container" aria-live="polite">
+    <!-- JS will create .row elements containing up to 2 .card elements each -->
+  </div>
+</div>
+
+<script>
+/* Script features:
+ - loads projects.json (same path as before)
+ - renders rows of two cards each (last row can be single)
+ - toggles row classes so when one card expands, sibling collapses and layout animates horizontally
+ - keyboard accessible (Enter/Space toggles; Escape collapses)
+ - "Read more" toggles expansion, "Open" opens project.url if present
+*/
+
+(async function(){
+  const container = document.getElementById('projects-container');
+
+  // helper: fetch projects.json with fallback sample
+  async function fetchProjects(){
+    try {
+      const r = await fetch('projects.json', {cache:'no-cache'});
+      if(!r.ok) throw new Error('projects.json load failed');
+      const data = await r.json();
+      if(!Array.isArray(data)) throw new Error('projects.json must be array');
+      return data;
+    } catch(e){
+      console.error('projects load failed, using fallback', e);
+      return [
+        {
+          "title":"Sample Project Alpha",
+          "short_description":"Fallback sample project to prevent empty UI.",
+          "description":"This is sample descriptive text for Project Alpha. Replace with your projects.json data.",
+          "image":"placeholder-1.jpg",
+          "tags":["UI","Design"],
+          "date":"2024-07-01",
+          "url":"#"
+        },
+        {
+          "title":"Sample Project Beta",
+          "short_description":"Another fallback sample to test layout and interactions.",
+          "description":"Longer description for Project Beta demonstrating the horizontal expansion and smooth collapse of the sibling card.",
+          "image":"placeholder-2.jpg",
+          "tags":["Web","Frontend"],
+          "date":"2023-11-15",
+          "url":"#"
+        }
+      ];
+    }
+  }
+
+  // small HTML helpers
+  function escapeHtml(s){ if(!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
+  function slug(s){ return (s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
+  function formatDate(d){
+    try {
+      const dt = new Date(d);
+      if(isNaN(dt)) return '';
+      return dt.toLocaleDateString(undefined, {year:'numeric', month:'short'});
+    } catch(e){ return d||''; }
+  }
+
+  // create a single card element
+  function createCard(project, side){ // side: 'left' or 'right'
+    const card = document.createElement('article');
+    card.className = 'card ' + side;
+    card.setAttribute('tabindex','0');
+    card.setAttribute('role','article');
+    card.dataset.title = project.title || '';
+    card.innerHTML = `
+      <div class="media" aria-hidden="true">
+        <img loading="lazy" src="../assets/images/projects/${encodeURIComponent(project.image || 'placeholder-1.jpg')}" alt="${escapeHtml(project.title || '')}">
+      </div>
+      <div class="info">
+        <h3 class="title" id="title-${slug(project.title||Math.random().toString(36).slice(2,7))}">${escapeHtml(project.title)}</h3>
+        <div class="meta">
+          <div class="chips">${(project.tags||[]).slice(0,4).map(t=>`<span class="chip">${escapeHtml(t)}</span>`).join('')}</div>
+          <div style="flex:1"></div>
+          <div style="color:var(--muted-2);font-size:0.85rem;">${project.date?formatDate(project.date):''}</div>
+        </div>
+
+        <p class="short">${escapeHtml(project.short_description || '')}</p>
+
+        <div class="actions">
+          <button class="btn primary btn-expand" aria-expanded="false" type="button">Read more</button>
+          <button class="btn ghost btn-open" type="button">Open</button>
+        </div>
+
+        <div class="extra" aria-hidden="true">${escapeHtml(project.description || '')}</div>
+      </div>
+    `;
+    // attach project data for open link
+    card._proj = project;
+    return card;
+  }
+
+  // render projects into rows of two
+  function renderRows(projects){
+    container.innerHTML = '';
+    for(let i=0;i<projects.length;i+=2){
+      const row = document.createElement('div');
+      row.className = 'row';
+      const left = createCard(projects[i], 'left');
+      row.appendChild(left);
+      if(i+1 < projects.length){
+        const right = createCard(projects[i+1], 'right');
+        row.appendChild(right);
+      } else {
+        row.classList.add('single');
+      }
+      bindRowInteractions(row);
+      container.appendChild(row);
+    }
+  }
+
+  // bind interactions for a row (handles sibling collapse/expand behavior)
+  function bindRowInteractions(row){
+    const left = row.querySelector('.card.left');
+    const right = row.querySelector('.card.right');
+
+    // helper to collapse row
+    function collapseRow(){
+      row.classList.remove('expanded-left','expanded-right');
+      if(left){
+        left.setAttribute('aria-expanded','false');
+        left.querySelector('.btn-expand').setAttribute('aria-expanded','false');
+        left.querySelector('.extra').setAttribute('aria-hidden','true');
+        left.querySelector('.btn-expand').textContent = 'Read more';
+      }
+      if(right){
+        right.setAttribute('aria-expanded','false');
+        right.querySelector('.btn-expand').setAttribute('aria-expanded','false');
+        right.querySelector('.extra').setAttribute('aria-hidden','true');
+        right.querySelector('.btn-expand').textContent = 'Read more';
+      }
+    }
+
+    // expand left card
+    function expandLeft(){
+      if(!left) return;
+      row.classList.remove('expanded-right');
+      row.classList.add('expanded-left');
+      left.setAttribute('aria-expanded','true');
+      left.querySelector('.btn-expand').setAttribute('aria-expanded','true');
+      left.querySelector('.extra').setAttribute('aria-hidden','false');
+      left.querySelector('.btn-expand').textContent = 'Show less';
+      if(right){
+        right.setAttribute('aria-expanded','false');
+        right.querySelector('.btn-expand').setAttribute('aria-expanded','false');
+        right.querySelector('.extra').setAttribute('aria-hidden','true');
+        right.querySelector('.btn-expand').textContent = 'Read more';
+      }
+    }
+
+    // expand right card
+    function expandRight(){
+      if(!right) return;
+      row.classList.remove('expanded-left');
+      row.classList.add('expanded-right');
+      right.setAttribute('aria-expanded','true');
+      right.querySelector('.btn-expand').setAttribute('aria-expanded','true');
+      right.querySelector('.extra').setAttribute('aria-hidden','false');
+      right.querySelector('.btn-expand').textContent = 'Show less';
+      if(left){
+        left.setAttribute('aria-expanded','false');
+        left.querySelector('.btn-expand').setAttribute('aria-expanded','false');
+        left.querySelector('.extra').setAttribute('aria-hidden','true');
+        left.querySelector('.btn-expand').textContent = 'Read more';
+      }
+    }
+
+    // add listeners
+    if(left){
+      const btn = left.querySelector('.btn-expand');
+      btn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        if(row.classList.contains('expanded-left')) collapseRow();
+        else expandLeft();
+      });
+      left.addEventListener('keydown',(ev)=>{
+        if(ev.key === 'Enter' || ev.key === ' '){
+          ev.preventDefault();
+          if(row.classList.contains('expanded-left')) collapseRow(); else expandLeft();
+        } else if(ev.key === 'Escape'){
+          collapseRow();
+        }
+      });
+      const openBtn = left.querySelector('.btn-open');
+      openBtn.addEventListener('click',(e)=>{
+        e.stopPropagation();
+        const url = left._proj && left._proj.url;
+        if(url) window.open(url,'_blank','noopener');
+        else expandLeft();
+      });
+    }
+
+    if(right){
+      const btn = right.querySelector('.btn-expand');
+      btn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        if(row.classList.contains('expanded-right')) collapseRow();
+        else expandRight();
+      });
+      right.addEventListener('keydown',(ev)=>{
+        if(ev.key === 'Enter' || ev.key === ' '){
+          ev.preventDefault();
+          if(row.classList.contains('expanded-right')) collapseRow(); else expandRight();
+        } else if(ev.key === 'Escape'){
+          collapseRow();
+        }
+      });
+      const openBtn = right.querySelector('.btn-open');
+      openBtn.addEventListener('click',(e)=>{
+        e.stopPropagation();
+        const url = right._proj && right._proj.url;
+        if(url) window.open(url,'_blank','noopener');
+        else expandRight();
+      });
+    }
+
+    // clicking outside collapses that row (optional)
+    row.addEventListener('click',(e)=>{
+      // clicking empty space when expanded does nothing - keep behavior simple
+    });
+  }
+
+  // initialize
+  const projects = await fetchProjects();
+  renderRows(projects);
+
+})();
+</script>
+
+</body>
+</html>

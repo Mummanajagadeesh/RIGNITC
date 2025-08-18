@@ -20,7 +20,7 @@
       margin: 0; padding: 0;
       width: 100%; height: 100%;
       font-family: "Libre Caslon Display", serif;
-      cursor: none;
+      cursor: none !important;
       overflow-x: hidden;
       transition: background 1s ease;
       background: rgb(227,227,227); /* initial */
@@ -476,10 +476,10 @@
   }
 
   #projects .projects-container {
-    padding: 120px 50px 200px;
+    padding: 200px 150px 300px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* align like About */
+    align-items: flex-start;
     gap: 60px;
     min-height: 100vh;
     width: 100%;
@@ -491,7 +491,7 @@
     opacity: 0;
     transform: translateY(50px);
     transition: all 0.8s ease-out;
-    text-align: center; /* default left */
+    text-align: center;
     width: 100%;
   }
 
@@ -504,7 +504,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 40px;
-    width: 100%; /* take full width */
+    width: 100%;
   }
 
   #projects .project-card {
@@ -523,17 +523,35 @@
     opacity: 1;
   }
 
-  #projects .project-card img {
+  /* Default image */
+  #projects .project-card img.default-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.4s ease, opacity 0.3s ease;
+    transition: opacity 0.4s ease, transform 0.4s ease;
   }
 
-  #projects .project-card:hover img {
+  /* Hover image */
+  #projects .project-card img.hover-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  /* Swap on hover */
+  #projects .project-card:hover img.default-img {
+    opacity: 0;
     transform: scale(1.05);
-    opacity: 0.85;
+  }
+  #projects .project-card:hover img.hover-img {
+    opacity: 1;
+    transform: scale(1.05);
   }
 
   #projects .project-overlay {
@@ -559,104 +577,96 @@
     margin: 0;
     opacity: 0.9;
   }
-#projects .project-link {
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "F3D Techno W00 Shadow", sans-serif;  
-  font-weight: normal;                               
-  font-size: 2.1rem;                                
-  color: #fff;
-  text-decoration: none;
-  padding: 12px 28px;
-  border: 2px solid #fff;
-  border-radius: 50px;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s ease;
-  margin-top: 12px;
-}
 
-#projects .project-link::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    rgba(255,255,255,0.2),
-    rgba(255,255,255,0.4),
-    rgba(255,255,255,0.2)
-  );
-  transform: skewX(-25deg);
-  transition: all 0.5s ease;
-}
-
-#projects .project-link:hover::before {
-  left: 200%;
-}
-
-#projects .project-link:hover {
-  color: #000;
-  background: #fff;
-  box-shadow: 0 0 20px rgba(255,255,255,0.6);
-  transform: scale(1.05);
-}
-
-#projects .project-link span {
-  margin-left: 8px;
-  display: inline-block;
-  transition: transform 0.3s ease;
-}
-
-#projects .project-link:hover span {
-  transform: translateX(6px);
-}
-
-#projects .view-all {
-  display: flex;
-  justify-content: flex-end;
-  opacity: 0;
-  transform: translateY(50px);
-  transition: all 0.8s ease-out;
-  width: 100%;
-}
-
-#projects .view-all.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-#projects .view-all a {
-  font-family: "F3D Techno W00 Shadow", sans-serif;  /* ✅ added font */
-  font-weight: normal;
-  font-size: 2.2rem;
-  color: #fff;
-  text-decoration: none;
-  border-bottom: 1px solid #fff;
-  padding-bottom: 2px;
-  transition: all 0.3s ease;
-}
-
-#projects .view-all a:hover {
-  color: #aaa;
-  border-color: #aaa;
-}
-
-@media (max-width: 900px) {
-  #projects .projects-header {
-    text-align: center;
-  }
-  #projects .view-all {
+  #projects .project-link {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
+    font-family: "F3D Techno W00 Shadow", sans-serif;
+    font-size: 2.1rem;
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 28px;
+    border: 2px solid #fff;
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    margin-top: 12px;
   }
-}
 
-</style>
+  #projects .project-link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.2), rgba(255,255,255,0.4), rgba(255,255,255,0.2));
+    transform: skewX(-25deg);
+    transition: all 0.5s ease;
+  }
 
+  #projects .project-link:hover::before {
+    left: 200%;
+  }
+
+  #projects .project-link:hover {
+    color: #000;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(255,255,255,0.6);
+    transform: scale(1.05);
+  }
+
+  #projects .project-link span {
+    margin-left: 8px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  #projects .project-link:hover span {
+    transform: translateX(6px);
+  }
+
+  #projects .view-all {
+    display: flex;
+    justify-content: flex-end;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease-out;
+    width: 100%;
+  }
+
+  #projects .view-all.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #projects .view-all a {
+    font-family: "F3D Techno W00 Shadow", sans-serif;
+    font-size: 2.2rem;
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 2px;
+    transition: all 0.3s ease;
+  }
+
+  #projects .view-all a:hover {
+    color: #aaa;
+    border-color: #aaa;
+  }
+
+  @media (max-width: 900px) {
+    #projects .projects-header {
+      text-align: center;
+    }
+    #projects .view-all {
+      justify-content: center;
+    }
+  }
+  </style>
 
   <div class="projects-container">
     <h1 class="projects-header">Featured Projects</h1>
@@ -664,7 +674,8 @@
     <div class="projects-grid">
       <!-- Project 1 -->
       <div class="project-card">
-        <img src="assets/images/projects/riggu.png" alt="Riggu Robot">
+        <img src="assets/images/projects/rigguH.png" alt="Riggu Robot" class="default-img">
+        <img src="assets/images/projects/riggu.png" alt="Riggu Robot Hover" class="hover-img">
         <div class="project-overlay">
           <h2><strong>RIGGU</strong></h2>
           <p>Semi Humanoid Robot designed for interactive robotics demonstrations, combining engineering and creativity to inspire learning.</p>
@@ -674,7 +685,8 @@
 
       <!-- Project 2 -->
       <div class="project-card">
-        <img src="assets/images/projects/avibot.png" alt="Avibot Robot">
+        <img src="assets/images/projects/avibotH.png" alt="Avibot Robot" class="default-img">
+        <img src="assets/images/projects/avibot.png" alt="Avibot Robot Hover" class="hover-img">
         <div class="project-overlay">
           <h2><strong>AVIBOT</strong></h2>
           <p>Automated Egg Collecting Farm Bot that optimizes poultry farm efficiency, ensuring faster collection and reducing human labor.</p>
@@ -683,17 +695,15 @@
       </div>
 
       <!-- Project 3 -->
-<div class="project-card">
-  <img src="assets/images/projects/gnss-drone.png" alt="Autonomous Drone for GNSS-Denied Environments">
-  <div class="project-overlay">
-    <h2><strong>GNSS DRONE</strong></h2>
-    <p>
-      Autonomous drone built for GNSS-denied environments using SLAM and onboard sensors for precise navigation.
-    </p>
-    <a href="projects/gnss-drone/" class="project-link">View Project <span>→</span></a>
-  </div>
-</div>
-
+      <div class="project-card">
+        <img src="assets/images/projects/gnss-droneH.png" alt="GNSS Drone" class="default-img">
+        <img src="assets/images/projects/gnss-drone.png" alt="GNSS Drone Hover" class="hover-img">
+        <div class="project-overlay">
+          <h2><strong>AUTONOMOUS DRONE</strong></h2>
+          <p>Autonomous drone built for GNSS-denied environments using SLAM and onboard sensors for precise navigation.</p>
+          <a href="projects/gnss-drone/" class="project-link">View Project <span>→</span></a>
+        </div>
+      </div>
     </div>
 
     <!-- View All Button -->
@@ -703,12 +713,11 @@
   </div>
 
 <script>
-  // Scroll reveal for projects
   const projectsObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('show');
-        projectsObserver.unobserve(entry.target); // stop observing once shown
+        projectsObserver.unobserve(entry.target);
       }
     });
   }, { threshold: 0.2 });
@@ -716,8 +725,8 @@
   document.querySelectorAll('#projects .projects-header, #projects .project-card, #projects .view-all')
     .forEach(el => projectsObserver.observe(el));
 </script>
-
 </section>
+
   
 <section id="people">
   <style>
