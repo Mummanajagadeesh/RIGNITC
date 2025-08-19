@@ -10,6 +10,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600&display=swap" rel="stylesheet">
+<!-- HEAD -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
 <link href="https://db.onlinewebfonts.com/c/f39c9c54bc3f4f701ca3b18d675dde06?family=F3D+Techno+W00+Shadow" rel="stylesheet" type="text/css"/>
 <link rel="icon" type="image/png" href="assets/images/logo.png">
 
@@ -19,8 +24,7 @@
     body, html {
       margin: 0; padding: 0;
       width: 100%; height: 100%;
-      font-family: "Libre Caslon Display", serif;
-      cursor: none !important;
+  font-family: "Orbitron", sans-serif;      cursor: none !important;
       overflow-x: hidden;
       transition: background 1s ease;
       background: rgb(227,227,227); /* initial */
@@ -76,7 +80,7 @@
       background: rgb(227,227,227);
       display: flex; justify-content: center; align-items: center;
       writing-mode: vertical-rl; transform: rotate(180deg);
-      font-size: 4rem; font-weight: bold; color: #111;
+      font-size: 3.2rem; font-weight: bold; color: #111;
       animation: scrollText 20s linear infinite; z-index: 800;
     }
     @keyframes scrollText {
@@ -125,7 +129,7 @@
     .ai-tagline {
       position: absolute;
       left: 50%; transform: translateX(-50%);
-      font-family: "F3D Techno W00 Shadow", sans-serif;  
+  font-family: "Sora", "Inter", sans-serif;
       font-size: 4rem;
       font-weight: bold;
       color: #fff;
@@ -198,12 +202,11 @@
     #about {
       background: #111;
       color: #fff;
-      font-family: "Libre Caslon Display", serif;
-      margin: 0;
+  font-family: "Orbitron", sans-serif;      margin: 0;
     }
 
     #about .about-container {
-      padding: 120px 50px 50px; /* top padding = navbar height */
+      padding: 120px 50px 100px; /* top padding = navbar height */
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -314,7 +317,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: "F3D Techno W00 Shadow", sans-serif;  
+  font-family: "Sora", "Inter", sans-serif;
   font-weight: normal;                               
   font-size: 3.1rem;                                 
   color: #fff;
@@ -408,7 +411,7 @@
         <div class="card" id="card">
           <div class="card-overlay">
             <h2>RIGNITC</h2>
-            <p>B21s B22s @ORIGO24</p>
+            <p>B21s B22s @ORIGO23</p>
           </div>
         </div>
       </div>
@@ -466,207 +469,177 @@
 
 
 
-<section id="projects">
+<section id="projects"> 
   <style>
-  #projects {
-    background: #111;
-    color: #fff;
-    font-family: "Libre Caslon Display", serif;
-    margin: 0;
-  }
+    #projects {
+      background: #111;
+      color: #fff;
+  font-family: "Orbitron", sans-serif;      margin: 0;
+    }
 
-  #projects .projects-container {
-    padding: 200px 150px 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 60px;
-    min-height: 100vh;
-    width: 100%;
-  }
+    .projects-container {
+      padding: 120px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      min-height: 100vh;
+      width: 100%;
+    }
 
-  #projects .projects-header {
-    font-size: 4rem;
-    margin-bottom: 40px;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.8s ease-out;
-    text-align: center;
-    width: 100%;
-  }
-
-  #projects .projects-header.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  #projects .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 40px;
-    width: 100%;
-  }
-
-  #projects .project-card {
-    position: relative;
-    border: 2px solid #fff;
-    border-radius: 16px;
-    overflow: hidden;
-    background: #000;
-    transform: translateY(50px);
-    opacity: 0;
-    transition: all 0.8s ease-out;
-  }
-
-  #projects .project-card.show {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  /* Default image */
-  #projects .project-card img.default-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    filter: invert(1);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-  }
-
-  /* Hover image */
-  #projects .project-card img.hover-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-  }
-
-  /* Swap on hover */
-  #projects .project-card:hover img.default-img {
-    opacity: 0;
-    transform: scale(1.05);
-  }
-  #projects .project-card:hover img.hover-img {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-
-  #projects .project-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 25px;
-    background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0));
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  #projects .project-overlay h2 {
-    font-size: 2rem;
-    margin: 0;
-  }
-
-  #projects .project-overlay p {
-    font-size: 1.1rem;
-    line-height: 1.8rem;
-    margin: 0;
-    opacity: 0.9;
-  }
-
-  #projects .project-link {
-    align-self: flex-start;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "F3D Techno W00 Shadow", sans-serif;
-    font-size: 2.1rem;
-    color: #fff;
-    text-decoration: none;
-    padding: 12px 28px;
-    border: 2px solid #fff;
-    border-radius: 50px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s ease;
-    margin-top: 12px;
-  }
-
-  #projects .project-link::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(120deg, rgba(255,255,255,0.2), rgba(255,255,255,0.4), rgba(255,255,255,0.2));
-    transform: skewX(-25deg);
-    transition: all 0.5s ease;
-  }
-
-  #projects .project-link:hover::before {
-    left: 200%;
-  }
-
-  #projects .project-link:hover {
-    color: #000;
-    background: #fff;
-    box-shadow: 0 0 20px rgba(255,255,255,0.6);
-    transform: scale(1.05);
-  }
-
-  #projects .project-link span {
-    margin-left: 8px;
-    display: inline-block;
-    transition: transform 0.3s ease;
-  }
-
-  #projects .project-link:hover span {
-    transform: translateX(6px);
-  }
-
-  #projects .view-all {
-    display: flex;
-    justify-content: flex-end;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.8s ease-out;
-    width: 100%;
-  }
-
-  #projects .view-all.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  #projects .view-all a {
-    font-family: "F3D Techno W00 Shadow", sans-serif;
-    font-size: 2.2rem;
-    color: #fff;
-    text-decoration: none;
-    border-bottom: 1px solid #fff;
-    padding-bottom: 2px;
-    transition: all 0.3s ease;
-  }
-
-  #projects .view-all a:hover {
-    color: #aaa;
-    border-color: #aaa;
-  }
-
-  @media (max-width: 900px) {
-    #projects .projects-header {
+    .projects-header {
+      font-size: 3.5rem;
       text-align: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out;
     }
-    #projects .view-all {
-      justify-content: center;
+
+    .projects-header.show {
+      opacity: 1;
+      transform: translateY(0);
     }
-  }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+      width: 100%;
+    }
+
+    .project-card {
+      background: #1a1a1a;
+      border: 2px solid #333;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .project-card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+    }
+
+    /* --- Image Replacement Animation --- */
+    .project-image {
+      position: relative;
+      width: 100%;
+      height: 240px;
+      overflow: hidden;
+      filter: invert(1);
+    }
+
+    .project-image img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      background: #000;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .project-image img.hover-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      filter: invert(1);
+    }
+
+    .project-card:hover .project-image img.default-img {
+      opacity: 0;
+      transform: scale(1.05);
+    }
+
+    .project-card:hover .project-image img.hover-img {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    /* --- Content Below Image --- */
+    .project-content {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .project-content h2 {
+      font-size: 1.8rem;
+      margin: 0;
+    }
+
+    .project-content p {
+      font-size: 1rem;
+      line-height: 1.6rem;
+      opacity: 0.9;
+      margin: 0;
+    }
+
+    .project-link {
+      align-self: flex-start;
+  font-family: "Sora", "Inter", sans-serif;
+      font-size: 1.2rem;
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 22px;
+      border: 2px solid #fff;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+
+    .project-link:hover {
+      background: #fff;
+      color: #000;
+      transform: scale(1.05);
+      box-shadow: 0 0 16px rgba(255,255,255,0.5);
+    }
+
+    .view-all {
+      display: flex;
+      justify-content: right;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 0.8s ease-out;
+      width: 100%;
+    }
+
+    .view-all.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .view-all a {
+  font-family: "Sora", "Inter", sans-serif;
+      font-size: 1.5rem;
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid #fff;
+      padding-bottom: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .view-all a:hover {
+      color: #aaa;
+      border-color: #aaa;
+    }
+
+    @media (max-width: 768px) {
+      .projects-container {
+        padding: 80px 24px;
+      }
+      .projects-header {
+        font-size: 2.5rem;
+      }
+    }
   </style>
 
   <div class="projects-container">
@@ -675,34 +648,40 @@
     <div class="projects-grid">
       <!-- Project 1 -->
       <div class="project-card">
-        <img src="assets/images/projects/rigguH.png" alt="Riggu Robot" class="default-img">
-        <img src="assets/images/projects/riggu.png" alt="Riggu Robot Hover" class="hover-img">
-        <div class="project-overlay">
+        <div class="project-image">
+          <img src="assets/images/projects/rigguH.png" alt="Riggu Robot" class="default-img">
+          <img src="assets/images/projects/riggu.png" alt="Riggu Robot Hover" class="hover-img">
+        </div>
+        <div class="project-content">
           <h2><strong>RIGGU</strong></h2>
           <p>Semi Humanoid Robot designed for interactive robotics demonstrations, combining engineering and creativity to inspire learning.</p>
-          <a href="projects/riggu/" class="project-link">View Project <span>→</span></a>
+          <a href="projects/riggu/" class="project-link">View Project →</a>
         </div>
       </div>
 
       <!-- Project 2 -->
       <div class="project-card">
-        <img src="assets/images/projects/avibotH.png" alt="Avibot Robot" class="default-img">
-        <img src="assets/images/projects/avibot.png" alt="Avibot Robot Hover" class="hover-img">
-        <div class="project-overlay">
+        <div class="project-image">
+          <img src="assets/images/projects/avibotH.png" alt="Avibot Robot" class="default-img">
+          <img src="assets/images/projects/avibot.png" alt="Avibot Robot Hover" class="hover-img">
+        </div>
+        <div class="project-content">
           <h2><strong>AVIBOT</strong></h2>
           <p>Automated Egg Collecting Farm Bot that optimizes poultry farm efficiency, ensuring faster collection and reducing human labor.</p>
-          <a href="projects/avibot/" class="project-link">View Project <span>→</span></a>
+          <a href="projects/avibot/" class="project-link">View Project →</a>
         </div>
       </div>
 
       <!-- Project 3 -->
       <div class="project-card">
-        <img src="assets/images/projects/gnss-droneH.png" alt="GNSS Drone" class="default-img">
-        <img src="assets/images/projects/gnss-drone.png" alt="GNSS Drone Hover" class="hover-img">
-        <div class="project-overlay">
+        <div class="project-image">
+          <img src="assets/images/projects/gnss-droneH.png" alt="GNSS Drone" class="default-img">
+          <img src="assets/images/projects/gnss-drone.png" alt="GNSS Drone Hover" class="hover-img">
+        </div>
+        <div class="project-content">
           <h2><strong>AUTONOMOUS DRONE</strong></h2>
           <p>Autonomous drone built for GNSS-denied environments using SLAM and onboard sensors for precise navigation.</p>
-          <a href="projects/gnss-drone/" class="project-link">View Project <span>→</span></a>
+          <a href="projects/gnss-drone/" class="project-link">View Project →</a>
         </div>
       </div>
     </div>
@@ -713,29 +692,27 @@
     </div>
   </div>
 
-<script>
-  const projectsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('show');
-        projectsObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
+  <script>
+    const projectsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          projectsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
 
-  document.querySelectorAll('#projects .projects-header, #projects .project-card, #projects .view-all')
-    .forEach(el => projectsObserver.observe(el));
-</script>
+    document.querySelectorAll('.projects-header, .project-card, .view-all')
+      .forEach(el => projectsObserver.observe(el));
+  </script>
 </section>
-
   
 <section id="people">
   <style>
     #people {
       background: #111;
       color: #fff;
-      font-family: "Libre Caslon Display", serif;
-      margin: 0;
+  font-family: "Orbitron", sans-serif;      margin: 0;
       padding: 20px 0; /* small vertical space */
       overflow: hidden;
       display: flex;
@@ -786,8 +763,7 @@
         #people {
       background: #111;
       color: #fff;
-      font-family: "Libre Caslon Display", serif;
-      margin: 0;
+  font-family: "Orbitron", sans-serif;      margin: 0;
       padding: 40px 0 !important; /* small vertical space */
       overflow: hidden;
       display: flex;
@@ -834,7 +810,9 @@ const companyImages = [
   "assets/images/companies/visa.png",
   "assets/images/companies/dxc.png",
   "assets/images/companies/uidai.png",
-  "assets/images/companies/ns.png"
+  "assets/images/companies/ns.png",
+  "assets/images/companies/kbr.png",
+  "assets/images/companies/caterpillar.png"
 ];
 
 
@@ -858,8 +836,7 @@ const companyImages = [
   #gallery {
     background: #111;
     color: #fff;
-    font-family: "Libre Caslon Display", serif;
-    margin: 0;
+  font-family: "Orbitron", sans-serif;    margin: 0;
     padding: 120px 50px 50px;
     display: flex;
     justify-content: flex-start; /* align items to the left */
@@ -1189,8 +1166,7 @@ document.getElementById('help').onclick = () => {
     #footer {
       background: #000;
       color: #fff;
-      font-family: "Libre Caslon Display", serif;
-      margin: 0;
+  font-family: "Orbitron", sans-serif;      margin: 0;
       padding: 15px 0; /* small height */
       display: flex;
       flex-direction: column;
