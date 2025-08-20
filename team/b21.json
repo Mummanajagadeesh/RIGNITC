@@ -1,0 +1,112 @@
+[
+  {
+    "name": "Karthik Jayaraj",
+    "photo": "assets/images/team/b21/karthik-jayaraj.png",
+    "role": "Team Captain",
+    "socials": [
+      {
+        "platform": "linkedin",
+        "url": "https://www.linkedin.com/in/karthik-jayaraj-93a903222/"
+      }
+    ]
+  },
+  {
+    "name": "Karthik Manoranjan",
+    "photo": "assets/images/team/b21/karthik-manoranjan.png",
+    "role": "Team Member",
+    "socials": [
+      {
+        "platform": "linkedin",
+        "url": "https://www.linkedin.com/in/karthik-manoranjan"
+      }
+    ]
+  },
+  {
+    "name": "Sneha Joe M",
+    "photo": "assets/images/team/b21/sneha-joe-m.png",
+    "role": "Team Member",
+    "socials": [
+      {
+        "platform": "linkedin",
+        "url": "https://www.linkedin.com/in/sneha-joe-m-electronics-engineer"
+      }
+    ]
+  },
+  {
+    "name": "Madhav Menon",
+    "photo": "assets/images/team/b21/madhav-menon.png",
+    "role": "Team Member",
+    "socials": [
+      {
+        "platform": "linkedin",
+        "url": "https://www.linkedin.com/in/madhav-menon-"
+      }
+    ]
+  },
+  {
+    "name": "Adhyuth Narayan",
+    "photo": "assets/images/team/b21/adyuth-narayan.png",
+    "role": "Team Member",
+    "socials": [
+      {
+        "platform": "linkedin",
+        "url": "https://www.linkedin.com/in/adhyuth-narayan"
+      }
+    ]
+  },
+  {
+    "name": "Aadhil Noushad",
+    "photo": "assets/images/team/b21/aadhil-noushad.png",
+    "role": "Team Member",
+    "socials": [
+      {
+        "platform": "linkedin",
+        "url": "https://www.linkedin.com/in/aadhil-noushad-179849316/"
+      }
+    ]
+  },
+  {
+    "name": "Pranav Ramesh",
+    "photo": "assets/images/team/b21/pranav-ramesh.png",
+    "role": "Team Member",
+    "socials": [
+      {
+        "platform": "linkedin",
+        "url": "https://www.linkedin.com/in/pranav-ramesh-36b24b244/"
+      }
+    ]
+  },
+  {
+    "name": "Kathaan Vora",
+    "photo": "assets/images/team/b21/kathaan-voora.png",
+    "role": "Team Member",
+    "socials": [
+      {
+        "platform": "linkedin",
+        "url": "https://www.linkedin.com/in/kathaan-vora-845b6b219/"
+      }
+    ]
+  },
+  {
+    "name": "Prudhvi Mallavarapu",
+    "photo": "assets/images/team/b21/prudhvi.png",
+    "role": "Team Member",
+    "socials": [
+      {
+        "platform": "linkedin",
+        "url": "https://www.linkedin.com/in/prudhvi-mallavarapu78/"
+      }
+    ]
+  },
+  {
+    "name": "Aftaab Ahamed",
+    "photo": "assets/images/team/b21/aftaab-ahamed.png",
+    "role": "Team Member",
+    "socials": [
+      {
+        "platform": "linkedin",
+        "url": "https://www.linkedin.com/in/aftaab-ahamed-058b9b221/"
+      }
+    ]
+  }
+]
