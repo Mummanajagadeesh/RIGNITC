@@ -129,7 +129,7 @@
     .ai-tagline {
       position: absolute;
       left: 50%; transform: translateX(-50%);
-  font-family: "Sora", "Inter", sans-serif;
+        font-family: "F3D Techno W00 Shadow", sans-serif;
       font-size: 4rem;
       font-weight: bold;
       color: #fff;
@@ -181,15 +181,15 @@
         <spline-viewer url="https://prod.spline.design/YpsdPvbFG2DWDRcp/scene.splinecode"></spline-viewer>
       </div>
       <!-- Scene 3 (Circuit) -->
-      <div class="scene-wrapper" style="background:rgb(11,11,11);">
+      <!-- <div class="scene-wrapper" style="background:rgb(11,11,11);">
         <spline-viewer url="https://prod.spline.design/FMDKuxO3vVwJAe0X/scene.splinecode"></spline-viewer>
-      </div>
+      </div> -->
       <!-- Scene 4 (AI) -->
-      <div class="scene-wrapper" style="background:rgb(11,11,11);">
+      <!-- <div class="scene-wrapper" style="background:rgb(11,11,11);">
         <spline-viewer url="https://prod.spline.design/7OZMy55eefCqX0VM/scene.splinecode"></spline-viewer>
         <div class="ai-tagline top">This is the place where</div>
         <div class="ai-tagline bottom">AI thinks with you</div>
-      </div>
+      </div> -->
     </div>
 
     <!-- Scroll arrow -->
@@ -1201,12 +1201,14 @@ document.getElementById('help').onclick = () => {
   </style>
 
   <!-- Social links -->
-  <div class="socials">
-    <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-    <a href="https://github.com/" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-    <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-    <a href="https://youtube.com/" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-  </div>
+<div class="socials">
+  <a href="https://www.instagram.com/rig_nitc/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+  <a href="https://github.com/rignitc" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+  <a href="https://www.linkedin.com/company/rignitc" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+  <a href="https://www.youtube.com/user/RIGNITC" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+  <a href="https://rignitc.github.io/blogs/" target="_blank" aria-label="Blog"><i class="fas fa-blog"></i></a>
+</div>
+
 
   <!--tagline -->
   <div class="tag">No Copyrights Reserved</div>
@@ -1286,7 +1288,7 @@ document.getElementById('help').onclick = () => {
 
   // ---------------- Scene Cycling ----------------
   var currentIndex = 0; // use var to avoid redeclare errors
-  const scenes = 4;
+  const scenes = 2;
   const cycleInterval = 20000;
   var autoCycleTimer = null;
 
