@@ -76,7 +76,7 @@ C:.
 ### UI/UX Guidelines
 
 * Navbar CSS is located in `assets/css/navbar.css`.
-* Improve UI where needed; remove anything that feels “cringe”.
+* Improve UI where needed; remove anything that feels “Cringe”.
 * Maintain consistency with colors and layout, especially for spline scenes.
 * Hidden watermarks have been masked with background colors—avoid disturbing this.
 
