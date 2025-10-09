@@ -161,6 +161,13 @@ button,
     }
 }
 
+      @font-face {
+    font-family: 'Pricedown';
+    src: url('../assets/fonts/Pricedown Bl.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* SPONSOR BUTTON (PREMIUM SILVER) */
 .btn-sponsor {
     background: linear-gradient(
