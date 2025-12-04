@@ -35,6 +35,11 @@
     "photo": "assets/images/achievements/competitions/swasraya.png"
   },
   {
+    "title": "Hackathon for Social Good",
+    "description": "Secured 2nd place in the Hackathon for Social Good hosted by SIO Kerala, focusing on innovative solutions for societal challenges.",
+    "photo":"assets/images/achievements/competitions/SocGood.webp"
+  },
+  {
     "title": "Robocon'24",
     "description": "Advanced to the second round of Robocon'24",
     "photo": "assets/images/achievements/competitions/robocon24.png"
@@ -59,4 +64,5 @@
     "title": "ISRO Rover Challenge",
     "description": "Qualified for the second round of the ISRO Rover Challenge competition, with submissions for the second round due on May 15th."
   }
+  
 ]
