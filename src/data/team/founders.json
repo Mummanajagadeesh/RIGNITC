@@ -64,27 +64,13 @@
         "name": "RATAN SADANANDAN",
         "photo": "assets/images/team/founders/RATAN-SADANANDAN.webp",
         "role": "Team Member",
-        "socials": [
-        {
-            "platform": "linkedin",
-            "url": ""
-
-        }
-        ]
-
+        "socials": []
     },
     {
         "name": "SAFVAN P",
         "photo": "assets/images/team/founders/Safvan_Palathingal.webp",
         "role": "Team Member",
-        "socials": [
-        {
-            "platform": "linkedin",
-            "url": ""
-
-        }
-        ]
-
+        "socials": []
     },
     {
         "name": "Hari Prasanth",
@@ -94,10 +80,8 @@
         {
             "platform": "linkedin",
             "url": "https://www.linkedin.com/in/hariscorner"
-
         }
         ]
-
     },
     {
         "name": "Ajith Anil Meera",
@@ -107,10 +91,8 @@
         {
             "platform": "linkedin",
             "url": "https://www.linkedin.com/in/ajitham1994"
-
         }
         ]
-
     }
     
 ]
