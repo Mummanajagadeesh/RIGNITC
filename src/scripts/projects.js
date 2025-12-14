@@ -130,7 +130,6 @@
         <p class="short">${escapeHtml(project.short_description || '')}</p>
         <div class="actions">
           <button class="btn primary btn-expand" aria-expanded="false" type="button">Read more</button>
-          <button class="btn ghost btn-open" type="button">Open</button>
         </div>
         <div class="extra" aria-hidden="true">${escapeHtml(project.description || '')}</div>
       </div>
@@ -240,14 +239,6 @@
                     collapseRow(); 
                 } 
             });
-            
-            const openBtn = left.querySelector('.btn-open');
-            openBtn.addEventListener('click', e => { 
-                e.stopPropagation(); 
-                const url = left._proj && left._proj.url; 
-                if (url) window.open(url, '_blank', 'noopener'); 
-                else expandLeft(); 
-            });
         }
         
         if (right) {
@@ -266,14 +257,6 @@
                 } else if (ev.key === 'Escape') { 
                     collapseRow(); 
                 } 
-            });
-            
-            const openBtn = right.querySelector('.btn-open');
-            openBtn.addEventListener('click', e => { 
-                e.stopPropagation(); 
-                const url = right._proj && right._proj.url; 
-                if (url) window.open(url, '_blank', 'noopener'); 
-                else expandRight(); 
             });
         }
     }
