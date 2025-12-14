@@ -611,3 +611,83 @@
             border-top: none;
           }
         }
+
+/* Add to the end of projects.css */
+
+/* Highlight animation for expanded project */
+@keyframes highlight-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 18px 40px rgba(255, 255, 255, 0.03);
+  }
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhance expanded card appearance */
+.row.expanded-left .card.left,
+.row.expanded-right .card.right {
+  border-color: rgba(255, 255, 255, 0.8);
+  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+/* Make collapsed card more subtle */
+.row.expanded-left .card.right,
+.row.expanded-right .card.left {
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+/* Improve mobile experience for expanded cards */
+@media (max-width: 880px) {
+  .row.expanded-left .card.left .extra,
+  .row.expanded-right .card.right .extra {
+    animation: fade-in 0.5s ease;
+  }
+  
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
+
+/* Add to projects.css */
+.no-projects {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted-2);
+  font-size: 1.1rem;
+  grid-column: 1 / -1;
+}
+
+/* Loading state */
+.projects-grid.loading {
+  position: relative;
+  min-height: 300px;
+}
+
+.projects-grid.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--outline);
+  border-top-color: var(--fg);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
