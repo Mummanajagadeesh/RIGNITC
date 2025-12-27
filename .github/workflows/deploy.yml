@@ -54,6 +54,8 @@ jobs:
             sed -i \
               -e "s|=\"/assets/|=\"$BASE_PREFIX/assets/|g" \
               -e "s|=\"/src/|=\"$BASE_PREFIX/src/|g" \
+              -e "s|\"/src/components/|\"/$REPO/src/components/|g" \
+              -e "s|'/src/components/|'/$REPO/src/components/|g" \
               -e "s|href=\"/about/|href=\"$BASE_PREFIX/about/|g" \
               -e "s|href=\"/projects/|href=\"$BASE_PREFIX/projects/|g" \
               -e "s|href=\"/achievements/|href=\"$BASE_PREFIX/achievements/|g" \
@@ -69,12 +71,12 @@ jobs:
           # This specifically fixes the fetch() calls for navbar/footer and data JSONs
           find dist -type f -name "*.js" -print0 | while IFS= read -r -d '' file; do
             sed -i \
-              -e "s|fetch(\"/|fetch(\"$BASE_PREFIX/|g" \
-              -e "s|fetch('/|fetch('$BASE_PREFIX/|g" \
-              -e "s|\"/src/|\"$BASE_PREFIX/src/|g" \
-              -e "s|'/src/|'$BASE_PREFIX/src/|g" \
-              -e "s|\"/assets/|\"$BASE_PREFIX/assets/|g" \
-              -e "s|'/assets/|'$BASE_PREFIX/assets/|g" \
+              -e "s|fetch(\"/src/data/|fetch(\"/$REPO/src/data/|g" \
+              -e "s|fetch('/src/data/|fetch('/$REPO/src/data/|g" \
+              -e "s|\"/src/|\"/$REPO/src/|g" \
+              -e "s|'/src/|'/$REPO/src/|g" \
+              -e "s|\"/assets/|\"/$REPO/assets/|g" \
+              -e "s|'/assets/|'/$REPO/assets/|g" \
               "$file"
           done
 
@@ -87,8 +89,9 @@ jobs:
           done
 
           # ---------- JSON Data Fixes ----------
+          REPO="${GITHUB_REPOSITORY##*/}"
           find dist/src/data -type f -name "*.json" -print0 | while IFS= read -r -d '' file; do
-            sed -i "s|assets/|$BASE_PREFIX/assets/|g" "$file"
+            sed -i "s|assets/|$REPO/assets/|g" "$file"
           done
 
       # --------------------------------------------------
