@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install and Build 🏗️
         if: github.event.action != 'closed'
@@ -29,7 +31,69 @@ jobs:
           npm install
           npm run build
 
-      # This manages the 'pr-preview/' folder on the 'gh-pages' branch
+      # --------------------------------------------------
+      # Dynamic Path Prefixing (Fixes Broken Paths)
+      # --------------------------------------------------
+      - name: Prefix absolute paths (Environment Aware)
+        if: github.event.action != 'closed'
+        run: |
+          REPO="${GITHUB_REPOSITORY##*/}"
+          
+          # Determine the base prefix based on event type
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            BASE_PREFIX="/$REPO/pr-preview/pr-${{ github.event.number }}"
+          else
+            BASE_PREFIX="/$REPO"
+          fi
+          
+          echo "Prefixing all absolute paths with: $BASE_PREFIX"
+
+          # ---------- HTML ----------
+          find dist -type f -name "*.html" -print0 | while IFS= read -r -d '' file; do
+            sed -i \
+              -e "s|=\"/assets/|=\"$BASE_PREFIX/assets/|g" \
+              -e "s|=\"/src/|=\"$BASE_PREFIX/src/|g" \
+              -e "s|href=\"/about/|href=\"$BASE_PREFIX/about/|g" \
+              -e "s|href=\"/projects/|href=\"$BASE_PREFIX/projects/|g" \
+              -e "s|href=\"/achievements/|href=\"$BASE_PREFIX/achievements/|g" \
+              -e "s|href=\"/activities/|href=\"$BASE_PREFIX/activities/|g" \
+              -e "s|href=\"/team/|href=\"$BASE_PREFIX/team/|g" \
+              -e "s|href=\"/contact/|href=\"$BASE_PREFIX/contact/|g" \
+              -e "s|href=\"/hof/|href=\"$BASE_PREFIX/hof/|g" \
+              -e "s|href=\"/sitemap.xml|href=\"$BASE_PREFIX/sitemap.xml|g" \
+              "$file"
+          done
+
+          # ---------- JS ----------
+          find dist -type f -name "*.js" -print0 | while IFS= read -r -d '' file; do
+            sed -i \
+              -e "s|fetch(\"/src/data/|fetch(\"$BASE_PREFIX/src/data/|g" \
+              -e "s|fetch('/src/data/|fetch('$BASE_PREFIX/src/data/|g" \
+              -e "s|\"/src/|\"$BASE_PREFIX/src/|g" \
+              -e "s|'/src/|'$BASE_PREFIX/src/|g" \
+              -e "s|\"/assets/|\"$BASE_PREFIX/assets/|g" \
+              -e "s|'/assets/|'$BASE_PREFIX/assets/|g" \
+              "$file"
+          done
+
+          # ---------- CSS ----------
+          find dist/src/styles -type f -name "*.css" -print0 | while IFS= read -r -d '' file; do
+            sed -i \
+              -e "s|url(\"/assets/|url(\"$BASE_PREFIX/assets/|g" \
+              -e "s|url('/assets/|url('$BASE_PREFIX/assets/|g" \
+              "$file"
+          done
+
+          # ---------- JSON ----------
+          find dist/src/data -type f -name "*.json" -print0 | while IFS= read -r -d '' file; do
+            sed -i "s|assets/|$BASE_PREFIX/assets/|g" "$file"
+          done
+
+      # --------------------------------------------------
+      # Deployment Logic
+      # --------------------------------------------------
+
+      # Manages 'pr-preview/' folder on 'gh-pages'
       - name: Deploy PR Preview 🚀
         if: github.event_name == 'pull_request'
         uses: rossjrw/pr-preview-action@v1
@@ -38,11 +102,11 @@ jobs:
           preview-branch: gh-pages
           umbrella-dir: pr-preview
 
-      # This puts the main site into the root of the 'gh-pages' branch
+      # Manages Root on 'gh-pages'
       - name: Deploy Production to gh-pages 🌐
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: dist
           branch: gh-pages
-          clean: false # CRITICAL: Prevents deleting the 'pr-preview' folder
+          clean: false # Keeps the pr-preview folder safe
