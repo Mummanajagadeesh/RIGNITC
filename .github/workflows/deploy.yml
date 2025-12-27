@@ -32,23 +32,24 @@ jobs:
           npm run build
 
       # --------------------------------------------------
-      # Dynamic Path Prefixing (Fixes Broken Paths)
+      # Dynamic Path Prefixing (Fixes Broken Components & Assets)
       # --------------------------------------------------
       - name: Prefix absolute paths (Environment Aware)
         if: github.event.action != 'closed'
         run: |
           REPO="${GITHUB_REPOSITORY##*/}"
           
-          # Determine the base prefix based on event type
+          # Logic: If PR, prefix is /repo/pr-preview/pr-X. If main, prefix is /repo.
           if [ "${{ github.event_name }}" == "pull_request" ]; then
             BASE_PREFIX="/$REPO/pr-preview/pr-${{ github.event.number }}"
           else
             BASE_PREFIX="/$REPO"
           fi
           
-          echo "Prefixing all absolute paths with: $BASE_PREFIX"
+          echo "Correcting paths using prefix: $BASE_PREFIX"
 
-          # ---------- HTML ----------
+          # ---------- HTML Fixes ----------
+          # Fixes asset links and hrefs in all built HTML files
           find dist -type f -name "*.html" -print0 | while IFS= read -r -d '' file; do
             sed -i \
               -e "s|=\"/assets/|=\"$BASE_PREFIX/assets/|g" \
@@ -64,11 +65,12 @@ jobs:
               "$file"
           done
 
-          # ---------- JS ----------
+          # ---------- JS & Component Loader Fixes ----------
+          # This specifically fixes the fetch() calls for navbar/footer and data JSONs
           find dist -type f -name "*.js" -print0 | while IFS= read -r -d '' file; do
             sed -i \
-              -e "s|fetch(\"/src/data/|fetch(\"$BASE_PREFIX/src/data/|g" \
-              -e "s|fetch('/src/data/|fetch('$BASE_PREFIX/src/data/|g" \
+              -e "s|fetch(\"/|fetch(\"$BASE_PREFIX/|g" \
+              -e "s|fetch('/|fetch('$BASE_PREFIX/|g" \
               -e "s|\"/src/|\"$BASE_PREFIX/src/|g" \
               -e "s|'/src/|'$BASE_PREFIX/src/|g" \
               -e "s|\"/assets/|\"$BASE_PREFIX/assets/|g" \
@@ -76,24 +78,22 @@ jobs:
               "$file"
           done
 
-          # ---------- CSS ----------
-          find dist/src/styles -type f -name "*.css" -print0 | while IFS= read -r -d '' file; do
+          # ---------- CSS Fixes ----------
+          find dist -type f -name "*.css" -print0 | while IFS= read -r -d '' file; do
             sed -i \
               -e "s|url(\"/assets/|url(\"$BASE_PREFIX/assets/|g" \
               -e "s|url('/assets/|url('$BASE_PREFIX/assets/|g" \
               "$file"
           done
 
-          # ---------- JSON ----------
+          # ---------- JSON Data Fixes ----------
           find dist/src/data -type f -name "*.json" -print0 | while IFS= read -r -d '' file; do
             sed -i "s|assets/|$BASE_PREFIX/assets/|g" "$file"
           done
 
       # --------------------------------------------------
-      # Deployment Logic
+      # Deployment Steps
       # --------------------------------------------------
-
-      # Manages 'pr-preview/' folder on 'gh-pages'
       - name: Deploy PR Preview 🚀
         if: github.event_name == 'pull_request'
         uses: rossjrw/pr-preview-action@v1
@@ -102,11 +102,10 @@ jobs:
           preview-branch: gh-pages
           umbrella-dir: pr-preview
 
-      # Manages Root on 'gh-pages'
       - name: Deploy Production to gh-pages 🌐
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: dist
           branch: gh-pages
-          clean: false # Keeps the pr-preview folder safe
+          clean: false
