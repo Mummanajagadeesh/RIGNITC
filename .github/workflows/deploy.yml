@@ -54,8 +54,9 @@ jobs:
             sed -i \
               -e "s|=\"/assets/|=\"$BASE_PREFIX/assets/|g" \
               -e "s|=\"/src/|=\"$BASE_PREFIX/src/|g" \
-              -e "s|\"/src/components/|\"/$REPO/src/components/|g" \
-              -e "s|'/src/components/|'/$REPO/src/components/|g" \
+              -e "s|=\"/\"|=\"$BASE_PREFIX/\"|g" \
+              -e "s|\"/src/components/|\"$BASE_PREFIX/src/components/|g" \
+              -e "s|'/src/components/|'$BASE_PREFIX/src/components/|g" \
               -e "s|href=\"/about/|href=\"$BASE_PREFIX/about/|g" \
               -e "s|href=\"/projects/|href=\"$BASE_PREFIX/projects/|g" \
               -e "s|href=\"/achievements/|href=\"$BASE_PREFIX/achievements/|g" \
@@ -63,7 +64,11 @@ jobs:
               -e "s|href=\"/team/|href=\"$BASE_PREFIX/team/|g" \
               -e "s|href=\"/contact/|href=\"$BASE_PREFIX/contact/|g" \
               -e "s|href=\"/hof/|href=\"$BASE_PREFIX/hof/|g" \
+              -e "s|link: \"/hof/|link: \"$BASE_PREFIX/hof/|g" \
+              -e "s|link: '/hof/|link: '$BASE_PREFIX/hof/|g" \
               -e "s|href=\"/sitemap.xml|href=\"$BASE_PREFIX/sitemap.xml|g" \
+              -e "s@fetch(\"/src/data/@fetch(\"$BASE_PREFIX/src/data/@g" \
+              -e "s@fetch('/src/data/@fetch('$BASE_PREFIX/src/data/@g" \
               "$file"
           done
 
@@ -71,12 +76,12 @@ jobs:
           # This specifically fixes the fetch() calls for navbar/footer and data JSONs
           find dist -type f -name "*.js" -print0 | while IFS= read -r -d '' file; do
             sed -i \
-              -e "s|fetch(\"/src/data/|fetch(\"/$REPO/src/data/|g" \
-              -e "s|fetch('/src/data/|fetch('/$REPO/src/data/|g" \
-              -e "s|\"/src/|\"/$REPO/src/|g" \
-              -e "s|'/src/|'/$REPO/src/|g" \
-              -e "s|\"/assets/|\"/$REPO/assets/|g" \
-              -e "s|'/assets/|'/$REPO/assets/|g" \
+              -e "s@fetch(\"/src/data/@fetch(\"$BASE_PREFIX/src/data/@g" \
+              -e "s@fetch('/src/data/@fetch('$BASE_PREFIX/src/data/@g" \
+              -e "s|\"/src/|\"$BASE_PREFIX/src/|g" \
+              -e "s|'/src/|'$BASE_PREFIX/src/|g" \
+              -e "s|\"/assets/|\"$BASE_PREFIX/assets/|g" \
+              -e "s|'/assets/|'$BASE_PREFIX/assets/|g" \
               "$file"
           done
 
@@ -89,9 +94,11 @@ jobs:
           done
 
           # ---------- JSON Data Fixes ----------
-          REPO="${GITHUB_REPOSITORY##*/}"
           find dist/src/data -type f -name "*.json" -print0 | while IFS= read -r -d '' file; do
-            sed -i "s|assets/|$REPO/assets/|g" "$file"
+            sed -i \
+              -e "s|assets/|$REPO/assets/|g" \
+              -e "s|\"/activities/origo|\"$BASE_PREFIX/activities/origo|g" \
+              "$file"
           done
 
       # --------------------------------------------------
