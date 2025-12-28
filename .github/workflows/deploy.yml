@@ -36,10 +36,17 @@ jobs:
         if: github.event.action != 'closed'
         run: |
           REPO="${GITHUB_REPOSITORY##*/}"
+          OWNER="${GITHUB_REPOSITORY%%/*}"
           
-          # Logic: If PR, prefix is /repo/pr-preview/pr-X. If main, prefix is /repo.
+          # Logic: 
+          # 1. If it's a PR, use the PR preview path.
+          # 2. If it's the main production repo (rignitc/RIGNITC), use NO prefix (root).
+          # 3. Otherwise (forks), use the repo name as prefix.
+          
           if [ "${{ github.event_name }}" == "pull_request" ]; then
             BASE_PREFIX="/$REPO/pr-preview/pr-${{ github.event.number }}"
+          elif [ "$OWNER" == "rignitc" ]; then
+            BASE_PREFIX=""
           else
             BASE_PREFIX="/$REPO"
           fi
