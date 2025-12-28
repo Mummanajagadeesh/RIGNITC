@@ -31,10 +31,8 @@ jobs:
           npm install
           npm run build
 
-      # --------------------------------------------------
-      # Dynamic Path Prefixing (Fixes Broken Components & Assets)
-      # --------------------------------------------------
-      - name: Prefix absolute paths (Environment Aware)
+      # Dynamic Path Prefixing
+      - name: Prefix absolute paths
         if: github.event.action != 'closed'
         run: |
           REPO="${GITHUB_REPOSITORY##*/}"
@@ -49,7 +47,6 @@ jobs:
           echo "Correcting paths using prefix: $BASE_PREFIX"
 
           # ---------- HTML Fixes ----------
-          # Fixes asset links and hrefs in all built HTML files
           find dist -type f -name "*.html" -print0 | while IFS= read -r -d '' file; do
             sed -i \
               -e "s|=\"/assets/|=\"$BASE_PREFIX/assets/|g" \
@@ -73,7 +70,6 @@ jobs:
           done
 
           # ---------- JS & Component Loader Fixes ----------
-          # This specifically fixes the fetch() calls for navbar/footer and data JSONs
           find dist -type f -name "*.js" -print0 | while IFS= read -r -d '' file; do
             sed -i \
               -e "s@fetch(\"/src/data/@fetch(\"$BASE_PREFIX/src/data/@g" \
@@ -101,9 +97,6 @@ jobs:
               "$file"
           done
 
-      # --------------------------------------------------
-      # Deployment Steps
-      # --------------------------------------------------
       - name: Deploy PR Preview 🚀
         if: github.event_name == 'pull_request'
         uses: rossjrw/pr-preview-action@v1
