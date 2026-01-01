@@ -3,7 +3,7 @@
   /* allow pseudo-element overlay */
   background: #111;
   color: #fff;
-  font-family: "Pricedown", sans-serif;
+  font-family: "Neue Machina", sans-serif;
   margin: 0;
   overflow: hidden;
   /* clip pseudo-element */
@@ -100,7 +100,7 @@
 
 #about .card {
   z-index: 2;
-  background: #000 url("/assets/images/about-image.jpg") center center no-repeat;
+  background: #000 url("/assets/images/about-image.webp") center center no-repeat;
   background-size: cover;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
   transform-style: preserve-3d;
@@ -218,7 +218,7 @@
 }
 
 #about .stat-number {
-  font-family: "Pricedown", sans-serif !important;
+  font-family: "Neue Machina", sans-serif !important;
   font-size: 4rem;
   font-weight: bold;
   color: #fff;

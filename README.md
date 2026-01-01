@@ -1,4 +1,4 @@
-# Website Repository
+# Website Repository 
 
 This repository contains the source code for a multi-page website with sections for **About**, **Achievements**, **Activities**, **Projects**, **Team**, and **Contact**. The website includes interactive features, animations, and modular assets.
 
@@ -11,6 +11,7 @@ C:.
 ├── assets
 │   └── fonts
 │   └── images
+├───docs
 ├── src
 │   ├── components
 │   ├── data
@@ -24,6 +25,7 @@ C:.
 │   │   ├── activities
 │   │   │   └── origo
 │   │   ├── contact
+│   │   ├───hof
 │   │   ├── projects
 │   │   └── team
 │   ├── scripts
@@ -48,11 +50,6 @@ C:.
   - Common footer in all pages
   - Mobile navbar now consistent
   - Proper CI/CD
-
-- **Team:** In-Progress
-
-  - Collect all details of all seniors
-  - Update the respective `.json` files
 
 ---
 
@@ -87,14 +84,7 @@ C:.
 
 ## Future Work
 
-- Improve the main page.
 - Add more company logos and gallery photos.
-- Complete the Activities page.
-- Keep all `.json` files modular and easy to update.
-- Optimize page loading speed.
-- Improve meta tags for SEO.
 - Maintain a black-and-white theme only and improve the overall UI.
-- Ensure accessibility: provide proper alt text for images, maintain sufficient contrast, and use semantic HTML.
-- Delete all pngs and jpgs, switch to webp.
 - Try cleaning up the CSS to make it minimal
 - Find better font, make it consistent site-wide.
